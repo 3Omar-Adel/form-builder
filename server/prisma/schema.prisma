@@ -1,0 +1,116 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum FormStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum FieldType {
+  TEXT
+  EMAIL
+  NUMBER
+  TEXTAREA
+  SELECT
+  RADIO
+  CHECKBOX
+  DATE
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  forms Form[]
+}
+
+model Form {
+  id          String     @id @default(cuid())
+  title       String
+  description String?
+  slug        String     @unique
+  status      FormStatus @default(DRAFT)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  fields    FormField[]
+  responses Response[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model FormField {
+  id       String    @id @default(cuid())
+  label    String
+  type     FieldType
+  required Boolean   @default(false)
+  position Int
+
+  formId  String
+  form    Form             @relation(fields: [formId], references: [id], onDelete: Cascade)
+  options FieldOption[]
+  answers ResponseAnswer[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([formId, position])
+  @@index([formId])
+}
+
+model FieldOption {
+  id       String @id @default(cuid())
+  label    String
+  value    String
+  position Int
+
+  fieldId String
+  field   FormField @relation(fields: [fieldId], references: [id], onDelete: Cascade)
+
+  @@unique([fieldId, position])
+  @@index([fieldId])
+}
+
+model Response {
+  id String @id @default(cuid())
+
+  formId String
+  form   Form   @relation(fields: [formId], references: [id], onDelete: Cascade)
+
+  answers ResponseAnswer[]
+
+  createdAt DateTime @default(now())
+
+  @@index([formId])
+}
+
+model ResponseAnswer {
+  id    String @id @default(cuid())
+  value String
+
+  responseId String
+  response   Response @relation(fields: [responseId], references: [id], onDelete: Cascade)
+
+  fieldId String
+  field   FormField @relation(fields: [fieldId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([responseId, fieldId])
+  @@index([responseId])
+  @@index([fieldId])
+}
