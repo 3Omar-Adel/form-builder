@@ -1,0 +1,70 @@
+.form-canvas {
+    min-width: 0;
+    min-height: 100%;
+
+    padding: 40px;
+
+    background: var(--color-background);
+}
+
+.form-preview {
+    width: 100%;
+    max-width: 760px;
+    min-height: 500px;
+
+    margin: 0 auto;
+    padding: 40px;
+
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+
+    background: var(--color-surface);
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.04);
+
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+.form-preview-drag-over {
+    border-color: var(--color-primary);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(37, 99, 235, 0.08);
+}
+
+.form-canvas-empty {
+    max-width: 600px;
+
+    margin: 100px auto 0;
+
+    padding: 50px 30px;
+
+    border: 1px dashed var(--color-border);
+    border-radius: 16px;
+
+    text-align: center;
+
+    background: var(--color-surface);
+}
+
+.form-canvas-empty h2 {
+    margin: 0;
+
+    color: var(--color-text);
+
+    font-size: 1.1rem;
+}
+
+.form-canvas-empty p {
+    margin: 10px 0 0;
+
+    color: var(--color-text-muted);
+
+    font-size: 0.85rem;
+
+    line-height: 1.6;
+}

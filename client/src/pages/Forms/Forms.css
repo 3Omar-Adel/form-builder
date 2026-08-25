@@ -1,0 +1,98 @@
+.forms-page {
+    padding: 32px;
+}
+
+.forms-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+
+.forms-page-header h2 {
+    margin: 0 0 6px;
+    color: var(--color-text);
+    font-size: 28px;
+}
+
+.forms-page-header p {
+    margin: 0;
+    color: var(--color-text-muted);
+}
+
+.forms-page-header button {
+    padding: 10px 18px;
+
+    border: 1px solid var(--color-primary);
+    border-radius: 8px;
+
+    background: var(--color-primary);
+    color: #fff;
+
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.forms-empty {
+    padding: 48px;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+
+    background: var(--color-surface);
+
+    text-align: center;
+}
+
+.forms-empty h3 {
+    margin: 0 0 8px;
+    color: var(--color-text);
+}
+
+.forms-empty p {
+    margin: 0;
+    color: var(--color-text-muted);
+}
+
+.forms-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.form-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+
+    padding: 20px;
+
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+
+    background: var(--color-surface);
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.form-card h3 {
+    margin: 0 0 6px;
+    color: var(--color-text);
+}
+
+.form-card p {
+    margin: 0;
+    color: var(--color-text-muted);
+}
+
+.form-card > div:last-child {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    color: var(--color-text-muted);
+    font-size: 14px;
+}
