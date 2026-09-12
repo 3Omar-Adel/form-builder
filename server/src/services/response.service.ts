@@ -1,4 +1,5 @@
 import { prisma } from "../config/prisma";
+import { Prisma } from "../generated/prisma/client";
 import { ApiError } from "../utils/api-error";
 
 interface SubmitAnswer {
@@ -178,30 +179,30 @@ export const submitResponse = async (
   });
 
   const response = await prisma.$transaction(
-    async (tx) => {
-      return tx.response.create({
-        data: {
-          formId: form.id,
-          answers: {
-            create: normalizedAnswers,
-          },
-        },
-        include: {
-          answers: {
-            include: {
-              field: {
-                select: {
-                  id: true,
-                  label: true,
-                  type: true,
+    async (tx: Prisma.TransactionClient) => {
+        return tx.response.create({
+            data: {
+                formId: form.id,
+                answers: {
+                    create: normalizedAnswers,
                 },
-              },
             },
-          },
-        },
-      });
+            include: {
+                answers: {
+                    include: {
+                        field: {
+                            select: {
+                                id: true,
+                                label: true,
+                                type: true,
+                            },
+                        },
+                    },
+                },
+            },
+        });
     }
-  );
+);
 
   return response;
 };

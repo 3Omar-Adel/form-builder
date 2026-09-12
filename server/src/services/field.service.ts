@@ -1,4 +1,5 @@
 import { prisma } from "../config/prisma";
+import { Prisma } from "../generated/prisma/client";
 import { ApiError } from "../utils/api-error";
 
 interface CreateFieldData {
@@ -266,7 +267,8 @@ export const reorderFields = async (
     );
   }
 
-  await prisma.$transaction(async (tx) => {
+  await prisma.$transaction(
+  async (tx: Prisma.TransactionClient) => {
     // Temporary positions prevent conflicts while reordering
     for (const field of existingFields) {
       await tx.formField.update({
@@ -290,7 +292,8 @@ export const reorderFields = async (
         },
       });
     }
-  });
+  }
+);
 
   return prisma.formField.findMany({
     where: {
