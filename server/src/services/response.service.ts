@@ -1,5 +1,7 @@
 import { prisma } from "../config/prisma";
-import { Prisma } from "../generated/prisma/client";
+
+import type { Prisma } from "../generated/prisma/client";
+
 import { ApiError } from "../utils/api-error";
 
 interface SubmitAnswer {
