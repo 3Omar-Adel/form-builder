@@ -41,6 +41,7 @@ model Form {
   description String?
   slug        String     @unique
   status      FormStatus @default(DRAFT)
+  isTemplate Boolean @default(false)
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)

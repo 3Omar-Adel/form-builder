@@ -74,6 +74,7 @@ export const getFormById = async (
       _count: {
         select: {
           responses: true,
+          fields: true,
         },
       },
     },
@@ -342,4 +343,38 @@ export const restoreForm = async (
   });
 
   return restoredForm;
+};
+
+export const getPublishedFormBySlug = async (
+  slug: string
+) => {
+  const form = await prisma.form.findFirst({
+    where: {
+      slug,
+      status: "PUBLISHED",
+    },
+    include: {
+      fields: {
+        orderBy: {
+          position: "asc",
+        },
+        include: {
+          options: {
+            orderBy: {
+              position: "asc",
+            },
+          },
+        },
+      },
+    },
+  });
+
+  if (!form) {
+    throw new ApiError(
+      "Published form not found",
+      404
+    );
+  }
+
+  return form;
 };

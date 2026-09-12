@@ -1,45 +1,57 @@
 import { useState, type SubmitEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+    useDispatch,
+    useSelector,
+} from "react-redux";
 
-import { authApi } from "../../api/auth.api";
-import { authStorage } from "../../auth/auth.storage";
+import type {
+    AppDispatch,
+    RootState,
+} from "../../redux/store";
+import {
+    loginUser,
+} from "../../redux/authSlice";
 
 const LoginForm = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch<AppDispatch>();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
 
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState("");
+    const isLoading = useSelector(
+        (state: RootState) =>
+            state.auth.isLoading
+    );
+
+    const error = useSelector(
+        (state: RootState) =>
+            state.auth.error
+    );
 
     const handleSubmit = async (
         event: SubmitEvent<HTMLFormElement>,
     ) => {
         event.preventDefault();
 
-        setError("");
-        setIsLoading(true);
-
         try {
-            const response = await authApi.login({
-                email,
-                password,
+            await dispatch(
+                loginUser({
+                    email,
+                    password,
+                })
+            ).unwrap();
+
+            navigate("/home", {
+                replace: true,
             });
-
-            authStorage.setToken(response.data.token);
-            authStorage.setUser(response.data.user);
-
-            navigate("/dashboard", {replace: true, });
         } catch (error) {
-            console.error("Login failed:", error);
-
-            setError(
-                "Invalid email or password. Please try again.",
+            console.error(
+                "Login failed:",
+                error,
             );
-        } finally {
-            setIsLoading(false);
         }
     };
 

@@ -1,6 +1,4 @@
-import {
-    useDraggable,
-} from "@dnd-kit/core";
+import { useDraggable } from "@dnd-kit/core";
 
 import ShortTextOutlinedIcon from "@mui/icons-material/ShortTextOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
@@ -11,25 +9,19 @@ import RadioButtonCheckedOutlinedIcon from "@mui/icons-material/RadioButtonCheck
 import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 
-import type {
-    FieldType,
-} from "../../../../types/form";
+import type { FieldType } from "../../../../types/form";
 
 import "./FieldSidebar.css";
 
 interface FieldSidebarProps {
-    onAddField: (
-        type: FieldType,
-    ) => void;
+    onAddField: (type: FieldType) => void;
 }
 
 interface DraggableFieldProps {
     type: FieldType;
     label: string;
     icon: React.ReactNode;
-    onAddField: (
-        type: FieldType,
-    ) => void;
+    onAddField: (type: FieldType) => void;
 }
 
 const DraggableField = ({
@@ -56,13 +48,9 @@ const DraggableField = ({
             ref={setNodeRef}
             type="button"
             className={`field-sidebar-item ${
-                isDragging
-                    ? "dragging"
-                    : ""
+                isDragging ? "dragging" : ""
             }`}
-            onClick={() =>
-                onAddField(type)
-            }
+            onClick={() => onAddField(type)}
             {...listeners}
             {...attributes}
         >
@@ -86,58 +74,42 @@ const FieldSidebar = ({
         {
             type: "TEXT" as FieldType,
             label: "Text",
-            icon: (
-                <ShortTextOutlinedIcon />
-            ),
+            icon: <ShortTextOutlinedIcon />,
         },
         {
             type: "EMAIL" as FieldType,
             label: "Email",
-            icon: (
-                <EmailOutlinedIcon />
-            ),
+            icon: <EmailOutlinedIcon />,
         },
         {
             type: "NUMBER" as FieldType,
             label: "Number",
-            icon: (
-                <NumbersOutlinedIcon />
-            ),
+            icon: <NumbersOutlinedIcon />,
         },
         {
             type: "TEXTAREA" as FieldType,
             label: "Textarea",
-            icon: (
-                <NotesOutlinedIcon />
-            ),
+            icon: <NotesOutlinedIcon />,
         },
         {
             type: "SELECT" as FieldType,
             label: "Select",
-            icon: (
-                <ListOutlinedIcon />
-            ),
+            icon: <ListOutlinedIcon />,
         },
         {
             type: "RADIO" as FieldType,
             label: "Radio",
-            icon: (
-                <RadioButtonCheckedOutlinedIcon />
-            ),
+            icon: <RadioButtonCheckedOutlinedIcon />,
         },
         {
             type: "CHECKBOX" as FieldType,
             label: "Checkbox",
-            icon: (
-                <CheckBoxOutlinedIcon />
-            ),
+            icon: <CheckBoxOutlinedIcon />,
         },
         {
             type: "DATE" as FieldType,
             label: "Date",
-            icon: (
-                <CalendarTodayOutlinedIcon />
-            ),
+            icon: <CalendarTodayOutlinedIcon />,
         },
     ];
 
@@ -149,25 +121,20 @@ const FieldSidebar = ({
                 </h2>
 
                 <p className="field-sidebar-description">
-                    Click or drag a field into
-                    your form
+                    Click or drag a field into your form
                 </p>
             </div>
 
             <div className="field-sidebar-list">
-                {fields.map(
-                    (field) => (
-                        <DraggableField
-                            key={field.type}
-                            type={field.type}
-                            label={field.label}
-                            icon={field.icon}
-                            onAddField={
-                                onAddField
-                            }
-                        />
-                    ),
-                )}
+                {fields.map((field) => (
+                    <DraggableField
+                        key={field.type}
+                        type={field.type}
+                        label={field.label}
+                        icon={field.icon}
+                        onAddField={onAddField}
+                    />
+                ))}
             </div>
         </aside>
     );

@@ -1,5 +1,9 @@
 import api from "./axios";
 
+import type {
+    ServerField,
+} from "./field.mapper";
+
 export type FormStatus =
     | "DRAFT"
     | "PUBLISHED"
@@ -19,6 +23,7 @@ export interface Form {
 
     userId: string;
 
+    fields?: ServerField[];
     createdAt: string;
     updatedAt: string;
 
@@ -83,6 +88,18 @@ export const formApi = {
         return response.data;
     },
 
+
+    getPublicBySlug: async (
+        slug: string,
+    ): Promise<FormResponse> => {
+        const response =
+            await api.get<FormResponse>(
+                `/forms/public/${slug}`,
+            );
+
+        return response.data;
+    },
+
     update: async (
         id: string,
         data: UpdateFormData,
@@ -96,7 +113,7 @@ export const formApi = {
         return response.data;
     },
 
-    delete: async (
+    deleteForm: async (
         id: string,
     ): Promise<void> => {
         await api.delete(`/forms/${id}`);

@@ -1,0 +1,509 @@
+.form-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    margin-bottom: 24px;
+    padding: 18px 20px;
+
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+
+    background: var(--color-surface);
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.form-actions-main {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+.form-actions-info {
+    min-width: 0;
+}
+
+.form-actions-title-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-actions h2 {
+    margin: 0;
+
+    color: var(--color-text);
+
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.form-actions-info > p {
+    margin: 5px 0 0;
+
+    color: var(--color-text-muted);
+
+    font-size: 0.78rem;
+}
+
+/* =========================
+   STATUS BADGE
+========================= */
+
+.form-status-badge {
+    display: inline-flex;
+
+    align-items: center;
+    gap: 6px;
+
+    padding: 4px 9px;
+
+    border-radius: 999px;
+
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.form-status-badge.draft {
+    background: var(--color-surface-hover);
+    color: var(--color-text-muted);
+}
+
+.form-status-badge.published {
+    background: rgba(34, 197, 94, 0.1);
+    color: #16a34a;
+}
+
+.form-status-badge.archived {
+    background: rgba(245, 158, 11, 0.1);
+    color: #d97706;
+}
+
+.form-status-dot {
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: currentColor;
+}
+
+/* =========================
+   ACTION BUTTONS
+========================= */
+
+.form-actions-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.form-action-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    min-height: 36px;
+
+    padding: 0 12px;
+
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+
+    background: var(--color-surface);
+
+    color: var(--color-text);
+
+    font-size: 0.8rem;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.form-action-button:hover {
+    background: var(--color-surface-hover);
+
+    border-color: var(--color-primary);
+}
+
+.form-action-button.active {
+    background: var(--color-surface-hover);
+
+    border-color: var(--color-primary);
+
+    color: var(--color-primary);
+}
+
+.form-action-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.form-action-button svg {
+    width: 17px;
+    height: 17px;
+}
+
+/* =========================
+   STATUS MENU
+========================= */
+
+.form-status-menu {
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+
+    background: var(--color-surface);
+
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.form-status-menu-header {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 8px;
+    padding: 0 4px;
+}
+
+.form-status-menu-header span {
+    color: var(--color-text);
+
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+.form-status-menu-header small {
+    color: var(--color-text-muted);
+
+    font-size: 0.7rem;
+}
+
+.form-status-options {
+    display: flex;
+    gap: 8px;
+}
+
+.form-status-option {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    flex: 1;
+
+    min-height: 42px;
+
+    padding: 0 12px;
+
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+
+    background: var(--color-surface);
+
+    color: var(--color-text);
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.form-status-option:hover:not(:disabled) {
+    background: var(--color-surface-hover);
+
+    border-color: var(--color-primary);
+}
+
+.form-status-option.selected {
+    background: var(--color-surface-hover);
+
+    border-color: var(--color-primary);
+
+    color: var(--color-primary);
+
+    cursor: default;
+}
+
+.form-status-option:disabled:not(.selected) {
+    opacity: 0.45;
+
+    cursor: not-allowed;
+}
+
+.form-status-option-content {
+    display: flex;
+
+    align-items: center;
+    gap: 8px;
+
+    font-size: 0.78rem;
+    font-weight: 500;
+}
+
+.form-status-option svg {
+    width: 16px;
+    height: 16px;
+}
+
+.form-status-option-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: var(--color-text-muted);
+}
+
+.form-status-option-dot.draft {
+    background: #94a3b8;
+}
+
+.form-status-option-dot.published {
+    background: #22c55e;
+}
+
+.form-status-option-dot.archived {
+    background: #f59e0b;
+}
+
+/* =========================
+   LOADING
+========================= */
+
+.form-status-loading {
+    padding: 2px 4px;
+
+    color: var(--color-text-muted);
+
+    font-size: 0.72rem;
+}
+
+/* =========================
+   ERROR
+========================= */
+
+.form-actions-error {
+    padding: 10px 12px;
+
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: 8px;
+
+    background: rgba(239, 68, 68, 0.06);
+
+    color: #dc2626;
+
+    font-size: 0.75rem;
+}
+
+/* =========================
+   PUBLIC LINK
+========================= */
+
+.form-public-link {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 16px;
+
+    padding: 14px;
+
+    border: 1px solid rgba(34, 197, 94, 0.25);
+    border-radius: 10px;
+
+    background: rgba(34, 197, 94, 0.045);
+}
+
+.form-public-link-content {
+    min-width: 0;
+    flex: 1;
+}
+
+.form-public-link-heading {
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+
+    margin-bottom: 8px;
+}
+
+.form-public-link-heading > span {
+    color: var(--color-text);
+
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+.form-public-link-heading > small {
+    color: var(--color-text-muted);
+
+    font-size: 0.68rem;
+}
+
+.form-public-link-url {
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    padding: 8px 10px;
+
+    border: 1px solid var(--color-border);
+    border-radius: 7px;
+
+    background: var(--color-surface);
+
+    color: var(--color-text-muted);
+
+    font-size: 0.72rem;
+    font-family: monospace;
+}
+
+.form-public-link-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+}
+
+.form-public-link-open,
+.form-public-link-copy {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    min-height: 34px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.form-public-link-open {
+    width: 34px;
+
+    border: 1px solid var(--color-border);
+
+    background: var(--color-surface);
+
+    color: var(--color-text);
+}
+
+.form-public-link-open:hover {
+    background: var(--color-surface-hover);
+
+    border-color: var(--color-primary);
+}
+
+.form-public-link-copy {
+    padding: 0 11px;
+    border: 1px solid var(--color-primary);
+    background: var(--color-primary);
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 500;
+    margin-top: 30px;
+}
+
+.form-public-link-copy:hover {
+    opacity: 0.9;
+}
+
+.form-public-link-copy.copied {
+    background: #16a34a;
+
+    border-color: #16a34a;
+}
+
+.form-public-link-open svg,
+.form-public-link-copy svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 700px) {
+
+    .form-actions-main {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .form-actions-buttons {
+        width: 100%;
+    }
+
+    .form-action-button {
+        flex: 1;
+    }
+
+    .form-status-options {
+        flex-direction: column;
+    }
+
+    .form-public-link {
+        align-items: stretch;
+
+        flex-direction: column;
+    }
+
+    .form-public-link-actions {
+        justify-content: flex-end;
+    }
+}
+
+@media (max-width: 450px) {
+
+    .form-actions {
+        padding: 15px;
+    }
+
+    .form-actions-title-row {
+        align-items: flex-start;
+
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .form-public-link-actions {
+        width: 100%;
+    }
+
+    .form-public-link-copy {
+        flex: 1;
+    }
+}

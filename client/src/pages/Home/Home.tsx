@@ -1,33 +1,29 @@
-import { useTheme } from "../../app/providers/theme/useTheme";
+
+
+// export default Home;
+import Navbar from "./components/Navbar/Navbar";
+import HeroSection from "./components/HeroSection/HeroSection";
+import FeaturesSection from "./components/FeaturesSection/FeaturesSection";
+import CTASection from "./components/CTASection/CTASection";
+import Footer from "./components/Footer/Footer";
+
+import "./Home.css";
 
 const Home = () => {
-    const { theme, toggleTheme } = useTheme();
-
     return (
-        <main className="home">
-            <section className="home-card">
-                <span className="home-badge">Form Builder</span>
+        <div className="home">
+            <Navbar />
 
-                <h1>Welcome to Form Builder</h1>
+            <main>
+                <HeroSection />
 
-                <p>
-                    Build powerful forms, manage submissions, and create
-                    beautiful experiences.
-                </p>
+                <FeaturesSection />
 
-                <div className="theme-info">
-                    Current theme: <strong>{theme}</strong>
-                </div>
+                <CTASection />
+            </main>
 
-                <button
-                    type="button"
-                    className="theme-button"
-                    onClick={toggleTheme}
-                >
-                    Switch to {theme === "light" ? "Dark" : "Light"} Mode
-                </button>
-            </section>
-        </main>
+            <Footer />
+        </div>
     );
 };
 

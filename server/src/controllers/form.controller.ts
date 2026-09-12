@@ -9,7 +9,8 @@ import {
   publishForm,
   unpublishForm,
   archiveForm,
-  restoreForm
+  restoreForm,
+  getPublishedFormBySlug,
 } from "../services/form.service";
 import { asyncHandler } from "../utils/async-handler";
 
@@ -171,6 +172,29 @@ export const restore = asyncHandler(
     res.status(200).json({
       success: true,
       message: "Form restored successfully",
+      data: {
+        form,
+      },
+    });
+  }
+);
+
+export const getPublished = asyncHandler(
+  async (req: Request, res: Response) => {
+    const slug = req.params.slug as string;
+
+    if (!slug) {
+      throw new ApiError(
+        "Form slug is required",
+        400
+      );
+    }
+
+    const form =
+      await getPublishedFormBySlug(slug);
+
+    res.status(200).json({
+      success: true,
       data: {
         form,
       },

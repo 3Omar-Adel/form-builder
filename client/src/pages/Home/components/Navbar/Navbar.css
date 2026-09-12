@@ -1,0 +1,517 @@
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-surface);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+.navbar-container {
+    width: 100%;
+    /* max-width: 1200px; */
+    height: 72px;
+    /* margin: 0 auto; */
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-logo {
+    text-decoration: none;
+}
+.sidebar-brand span {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-text);
+}
+/* =========================
+   NAVIGATION
+========================= */
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+
+    gap: 50px;
+
+    margin-left: 250px;
+}
+
+.navbar-links > a {
+    position: relative;
+
+    color: var(--color-text-muted);
+
+    text-decoration: none;
+
+    font-size: 0.86rem;
+    font-weight: 500;
+
+    transition:
+        color 0.2s ease;
+}
+
+.navbar-links > a:hover {
+    color: var(--color-text);
+}
+
+
+/* Small underline */
+
+.navbar-links > a::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -7px;
+
+    width: 0;
+    height: 2px;
+
+    border-radius: 2px;
+
+    background: var(--color-primary);
+
+    transition:
+        width 0.2s ease;
+}
+
+.navbar-links > a:hover::after {
+    width: 100%;
+}
+
+
+/* =========================
+   ACTIONS
+========================= */
+
+.navbar-actions {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    margin-left: auto;
+}
+
+
+/* =========================
+   THEME
+========================= */
+
+.theme-toggle {
+    width: 38px;
+    height: 38px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+
+    background: var(--color-background);
+    color: var(--color-text-muted);
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.theme-toggle:hover {
+    color: var(--color-text);
+
+    background: var(--color-surface-hover);
+
+    border-color: var(--color-text-muted);
+
+    transform: translateY(-1px);
+}
+
+.theme-toggle:active {
+    transform: scale(0.95);
+}
+
+.theme-toggle svg {
+    width: 19px;
+    height: 19px;
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+.login-button {
+    height: 38px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 14px;
+
+    border-radius: 9px;
+
+    color: var(--color-text);
+
+    text-decoration: none;
+
+    font-size: 0.84rem;
+    font-weight: 600;
+
+    transition:
+        background-color 0.2s ease;
+}
+
+.login-button:hover {
+    background: var(--color-background);
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard-button {
+    height: 38px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 0 13px;
+
+    border: 1px solid var(--color-border);
+    border-radius: 9px;
+
+    background: var(--color-surface);
+
+    color: var(--color-text);
+
+    text-decoration: none;
+
+    font-size: 0.82rem;
+    font-weight: 600;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.dashboard-button:hover {
+    background: var(--color-surface-hover);
+
+    border-color: var(--color-text-muted);
+
+    transform: translateY(-1px);
+}
+
+.dashboard-button svg {
+    width: 17px;
+    height: 17px;
+}
+
+
+/* =========================
+   PRIMARY CTA
+========================= */
+
+.get-started-button,
+.create-form-button {
+    height: 40px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 0 16px;
+
+    border: 1px solid var(--color-primary);
+    border-radius: 10px;
+
+    background: var(--color-primary);
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 0.84rem;
+    font-weight: 650;
+
+    box-shadow:
+        0 5px 14px rgba(0, 0, 0, 0.08);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.get-started-button:hover,
+.create-form-button:hover {
+    opacity: 0.92;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 7px 18px rgba(0, 0, 0, 0.12);
+}
+
+.get-started-button:active,
+.create-form-button:active {
+    transform: scale(0.97);
+}
+
+.create-form-button svg {
+    width: 18px;
+    height: 18px;
+}
+
+
+/* =========================
+   MOBILE MENU BUTTON
+========================= */
+
+.menu-button {
+    display: none;
+
+    width: 38px;
+    height: 38px;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+
+    background: var(--color-background);
+    color: var(--color-text);
+
+    cursor: pointer;
+}
+
+.menu-button svg {
+    width: 21px;
+    height: 21px;
+}
+
+
+/* =========================
+   MOBILE AUTH
+========================= */
+
+.mobile-auth {
+    display: none;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 850px) {
+
+    .navbar-container {
+        padding: 0 18px;
+    }
+
+    .navbar-links {
+        gap: 18px;
+
+        margin-left: 25px;
+    }
+
+    .navbar-links > a {
+        font-size: 0.8rem;
+    }
+
+    .login-button,
+    .get-started-button,
+    .dashboard-button,
+    .create-form-button {
+        font-size: 0.78rem;
+    }
+
+    .get-started-button,
+    .create-form-button {
+        padding: 0 12px;
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    .navbar-container {
+        height: 64px;
+
+        padding: 0 14px;
+    }
+
+
+    /* Hide desktop nav */
+
+    .navbar-links {
+        position: absolute;
+
+        top: 64px;
+        left: 0;
+        right: 0;
+
+        display: none;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 4px;
+
+        margin: 0;
+        padding: 14px;
+
+        border-bottom: 1px solid var(--color-border);
+
+        background: var(--color-surface);
+
+        box-shadow:
+            0 12px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .navbar-links-open {
+        display: flex;
+    }
+
+
+    .navbar-links > a {
+        padding: 12px;
+
+        border-radius: 9px;
+
+        font-size: 0.88rem;
+    }
+
+    .navbar-links > a:hover {
+        background: var(--color-background);
+    }
+
+    .navbar-links > a::after {
+        display: none;
+    }
+
+
+    /* Mobile auth */
+
+    .mobile-auth {
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 8px;
+
+        margin-top: 8px;
+
+        padding-top: 12px;
+
+        border-top: 1px solid var(--color-border);
+    }
+
+    .mobile-auth a {
+        min-height: 42px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        gap: 7px;
+
+        border-radius: 9px;
+
+        color: var(--color-text);
+
+        text-decoration: none;
+
+        font-size: 0.86rem;
+        font-weight: 600;
+    }
+
+    .mobile-auth a:first-child {
+        background: var(--color-background);
+    }
+
+    .mobile-auth a:first-child svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .navbar-mobile-button {
+        background: var(--color-primary) !important;
+
+        color: #ffffff !important;
+    }
+
+    .navbar-mobile-button svg {
+        width: 18px;
+        height: 18px;
+    }
+
+
+    /* Desktop auth hidden */
+
+    .login-button,
+    .get-started-button,
+    .dashboard-button,
+    .create-form-button {
+        display: none;
+    }
+
+
+    /* Menu */
+
+    .menu-button {
+        display: inline-flex;
+    }
+}
+
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 400px) {
+
+    .navbar-logo {
+        font-size: 0.95rem;
+    }
+
+    .navbar-logo-icon {
+        width: 34px;
+        height: 34px;
+    }
+
+    .theme-toggle,
+    .menu-button {
+        width: 36px;
+        height: 36px;
+    }
+}

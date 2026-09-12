@@ -1,14 +1,50 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import "./Sidebar.css";
+import {
+    NavLink,
+    useNavigate,
+} from "react-router-dom";
 
-import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import {
+    HomeOutlined,
+    DashboardOutlined,
+    DescriptionOutlined,
+    AddBoxOutlined,
+    FolderOpenOutlined,
+    SettingsOutlined,
+    LogoutOutlined,
+    CloseOutlined,
+} from "@mui/icons-material";
 
-import { authStorage } from "../../auth/auth.storage";
+import {
+    useDispatch,
+} from "react-redux";
 
-const Sidebar = () => {
-    const navigate = useNavigate();
+import type {
+    AppDispatch,
+} from "../../redux/store";
+
+import {
+    logout,
+} from "../../redux/authSlice";
+
+interface SidebarProps {
+    isOpen: boolean;
+    onClose: () => void;
+}
+
+const Sidebar = ({
+    isOpen,
+    onClose,
+}: SidebarProps) => {
+
+    const navigate =
+        useNavigate();
+
+    const dispatch =
+        useDispatch<AppDispatch>();
 
     const handleLogout = () => {
-        authStorage.removeToken();
+        dispatch(logout());
 
         navigate("/login", {
             replace: true,
@@ -16,85 +52,137 @@ const Sidebar = () => {
     };
 
     return (
-        <aside className="sidebar">
-            <div className="sidebar-brand">
-                <div className="sidebar-logo">
-                    F
+        <>
+            <div
+                className={`sidebar-overlay ${
+                    isOpen ? "show" : ""
+                }`}
+                onClick={onClose}
+            />
+
+            <aside
+                className={`sidebar ${
+                    isOpen ? "open" : ""
+                }`}
+            >
+
+                <div className="sidebar-brand">
+
+                    <div className="sidebar-logo">
+                        F
+                    </div>
+
+                    <div className="sidebar-brand-text">
+                        <span className="sidebar-brand-name">
+                            Form Builder
+                        </span>
+                    </div>
+
+                    <button
+                        type="button"
+                        className="sidebar-close-button"
+                        onClick={onClose}
+                        aria-label="Close menu"
+                    >
+                        <CloseOutlined />
+                    </button>
+
                 </div>
 
-                <span>Form Builder</span>
-            </div>
+                <nav className="sidebar-nav">
 
-            <nav className="sidebar-nav">
-                <NavLink
-                    to="/dashboard"
-                    className="sidebar-link"
-                >
-                    <span className="sidebar-icon">
-                        ◼
-                    </span>
+                    <NavLink
+                        to="/"
+                        className="sidebar-link"
+                        onClick={onClose}
+                    >
+                        <HomeOutlined className="sidebar-icon" />
 
-                    <span>Dashboard</span>
-                </NavLink>
+                        <span>
+                            Home
+                        </span>
+                    </NavLink>
 
-                <NavLink
-                    to="/forms"
-                    className="sidebar-link"
-                >
-                    <span className="sidebar-icon">
-                        ▤
-                    </span>
+                    <NavLink
+                        to="/dashboard"
+                        className="sidebar-link"
+                        onClick={onClose}
+                    >
+                        <DashboardOutlined className="sidebar-icon" />
 
-                    <span>Forms</span>
-                </NavLink>
-                
+                        <span>
+                            Dashboard
+                        </span>
+                    </NavLink>
 
-                <NavLink 
-                to="/forms/new"
-                className="sidebar-link"
-                >
-                    <span className="sidebar-icon">
-                        ▤
-                    </span>
+                    <NavLink
+                        to="/forms"
+                        className="sidebar-link"
+                        onClick={onClose}
+                    >
+                        <DescriptionOutlined className="sidebar-icon" />
 
-                    <span>Create Forms</span>
-                </NavLink>
+                        <span>
+                            Forms
+                        </span>
+                    </NavLink>
 
-                <NavLink
-                    to="/templates"
-                    className="sidebar-link"
-                >
-                    <span className="sidebar-icon">
-                        ◫
-                    </span>
+                    <NavLink
+                        to="/forms/new"
+                        className="sidebar-link"
+                        onClick={onClose}
+                    >
+                        <AddBoxOutlined className="sidebar-icon" />
 
-                    <span>Templates</span>
-                </NavLink>
+                        <span>
+                            Create Form
+                        </span>
+                    </NavLink>
 
-                <NavLink
-                    to="/settings"
-                    className="sidebar-link"
-                >
-                    <span className="sidebar-icon">
-                        ⚙
-                    </span>
+                    <NavLink
+                        to="/templates"
+                        className="sidebar-link"
+                        onClick={onClose}
+                    >
+                        <FolderOpenOutlined className="sidebar-icon" />
 
-                    <span>Settings</span>
-                </NavLink>
-            </nav>
+                        <span>
+                            Templates
+                        </span>
+                    </NavLink>
 
-            <div className="sidebar-footer">
-                <button
-                    type="button"
-                    className="logout-button"
-                    onClick={handleLogout}
-                >
-                    <LogoutOutlinedIcon />
+                    <NavLink
+                        to="/settings"
+                        className="sidebar-link"
+                        onClick={onClose}
+                    >
+                        <SettingsOutlined className="sidebar-icon" />
 
-                    <span>Logout</span>
-                </button>
-            </div>
-        </aside>
+                        <span>
+                            Settings
+                        </span>
+                    </NavLink>
+
+                </nav>
+
+                <div className="sidebar-footer">
+
+                    <button
+                        type="button"
+                        className="logout-button"
+                        onClick={handleLogout}
+                    >
+                        <LogoutOutlined />
+
+                        <span>
+                            Logout
+                        </span>
+                    </button>
+
+                </div>
+
+            </aside>
+        </>
     );
 };
 

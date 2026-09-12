@@ -1,0 +1,44 @@
+.templates-page {
+    min-width: 0;
+    min-height: 100%;
+
+    background: var(--color-background);
+    color: var(--color-text);
+}
+
+.templates-error {
+    width: 100%;
+    max-width: 1240px;
+
+    margin: 20px auto;
+
+    padding: 16px 20px;
+
+    border: 1px solid
+        color-mix(
+            in srgb,
+            #ef4444 30%,
+            var(--color-border)
+        );
+
+    border-radius: 12px;
+
+    background:
+        color-mix(
+            in srgb,
+            #ef4444 6%,
+            var(--color-surface)
+        );
+
+    color: #ef4444;
+
+    font-size: 14px;
+}
+
+@media (max-width: 600px) {
+    .templates-error {
+        width: calc(100% - 32px);
+
+        margin: 15px auto;
+    }
+}

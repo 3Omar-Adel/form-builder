@@ -1,15 +1,14 @@
 .form-field {
     position: relative;
-
+    min-width: 0;
     padding: 20px;
+    margin-bottom: 20px;
 
     border: 1px solid transparent;
     border-radius: 12px;
 
     background: transparent;
-
     cursor: pointer;
-
     touch-action: manipulation;
 
     transition:
@@ -24,17 +23,14 @@
 
 .form-field.selected {
     border-color: var(--color-primary);
-
     background: var(--color-surface-hover);
 }
 
 .form-field.dragging {
     z-index: 10;
-
     opacity: 0.55;
 
     background: var(--color-surface);
-
     border-color: var(--color-primary);
 
     box-shadow:
@@ -42,40 +38,31 @@
         rgba(0, 0, 0, 0.12);
 }
 
-/* =========================
-   TOOLBAR
-========================= */
+/* Toolbar */
 
 .form-field-toolbar {
     position: absolute;
-
     top: 10px;
     right: 10px;
 
     display: flex;
     align-items: center;
-
     gap: 4px;
 
     opacity: 0;
-
     pointer-events: none;
 
-    transition:
-        opacity 0.15s ease;
+    transition: opacity 0.15s ease;
 }
 
 .form-field:hover .form-field-toolbar,
 .form-field.selected .form-field-toolbar,
 .form-field.dragging .form-field-toolbar {
     opacity: 1;
-
     pointer-events: auto;
 }
 
-/* =========================
-   TOOLBAR BUTTONS
-========================= */
+/* Toolbar buttons */
 
 .form-field-drag-handle,
 .form-field-delete-button {
@@ -86,13 +73,13 @@
     align-items: center;
     justify-content: center;
 
+    flex-shrink: 0;
     padding: 0;
 
     border: 1px solid var(--color-border);
     border-radius: 7px;
 
     background: var(--color-surface);
-
     color: var(--color-text-muted);
 
     cursor: pointer;
@@ -105,7 +92,6 @@
 
 .form-field-drag-handle {
     cursor: grab;
-
     touch-action: none;
 }
 
@@ -115,15 +101,12 @@
 
 .form-field-drag-handle:hover {
     background: var(--color-surface-hover);
-
     color: var(--color-text);
 }
 
 .form-field-delete-button:hover {
     border-color: #dc2626;
-
     background: rgba(220, 38, 38, 0.08);
-
     color: #dc2626;
 }
 
@@ -133,15 +116,13 @@
     height: 18px;
 }
 
-/* =========================
-   LABEL
-========================= */
+/* Label */
 
 .form-field-label {
     display: block;
 
+    min-width: 0;
     margin-bottom: 9px;
-
     padding-right: 72px;
 
     color: var(--color-text);
@@ -149,96 +130,234 @@
     font-size: 0.85rem;
     font-weight: 600;
 
-    cursor: pointer;
+    line-height: 1.4;
+
+    overflow-wrap: anywhere;
 }
 
 .form-field-required {
     margin-left: 4px;
-
     color: #dc2626;
 }
 
-/* =========================
-   INPUTS
-========================= */
+/* Inputs */
 
 .form-field input,
 .form-field textarea,
 .form-field select {
     width: 100%;
+    min-width: 0;
+    max-width: 100%;
 
     border: 1px solid var(--color-border);
     border-radius: 9px;
 
     background: var(--color-surface);
-
     color: var(--color-text);
 
     font: inherit;
-
     outline: none;
 
-    pointer-events: none;
+    box-sizing: border-box;
 }
 
 .form-field input,
 .form-field select {
     height: 42px;
-
     padding: 0 12px;
 }
 
 .form-field textarea {
     min-height: 120px;
-
     padding: 12px;
 
     resize: none;
 }
 
-/* =========================
-   OPTIONS
-========================= */
+/* Options */
 
 .form-field-options {
     display: flex;
-
     flex-direction: column;
-
     gap: 10px;
+
+    min-width: 0;
 }
 
 .form-field-option {
     display: flex;
     align-items: center;
-
     gap: 9px;
 
-    color: var(--color-text);
+    min-width: 0;
 
+    color: var(--color-text);
     font-size: 0.85rem;
 
     pointer-events: none;
+}
+
+.form-field-option span {
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .form-field-option input {
     width: 16px;
     height: 16px;
 
+    flex-shrink: 0;
     margin: 0;
 }
 
-/* =========================
-   MOBILE
-========================= */
+/* Tablet */
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
     .form-field {
-        padding: 16px;
+        padding: 18px;
+        margin-bottom: 16px;
     }
 
     .form-field-toolbar {
         opacity: 1;
         pointer-events: auto;
+    }
+
+    .form-field-label {
+        margin-bottom: 8px;
+        padding-right: 70px;
+        font-size: 0.82rem;
+    }
+
+    .form-field input,
+    .form-field select {
+        height: 40px;
+        padding: 0 10px;
+        font-size: 0.82rem;
+    }
+
+    .form-field textarea {
+        min-height: 105px;
+        padding: 10px;
+        font-size: 0.82rem;
+    }
+
+    .form-field-option {
+        gap: 8px;
+        font-size: 0.8rem;
+    }
+}
+
+/* Mobile */
+
+@media (max-width: 700px) {
+    .form-field {
+        padding: 15px;
+        margin-bottom: 14px;
+        border-radius: 10px;
+    }
+
+    .form-field-toolbar {
+        top: 8px;
+        right: 8px;
+        gap: 3px;
+    }
+
+    .form-field-drag-handle,
+    .form-field-delete-button {
+        width: 29px;
+        height: 29px;
+        border-radius: 6px;
+    }
+
+    .form-field-drag-handle svg,
+    .form-field-delete-button svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .form-field-label {
+        margin-bottom: 7px;
+        padding-right: 64px;
+        font-size: 0.78rem;
+    }
+
+    .form-field input,
+    .form-field select {
+        height: 37px;
+        padding: 0 9px;
+        border-radius: 8px;
+        font-size: 0.76rem;
+    }
+
+    .form-field textarea {
+        min-height: 90px;
+        padding: 9px;
+        border-radius: 8px;
+        font-size: 0.76rem;
+    }
+
+    .form-field-options {
+        gap: 8px;
+    }
+
+    .form-field-option {
+        gap: 7px;
+        font-size: 0.75rem;
+    }
+
+    .form-field-option input {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+/* Small mobile */
+
+@media (max-width: 420px) {
+    .form-field {
+        padding: 12px;
+        margin-bottom: 12px;
+        border-radius: 9px;
+    }
+
+    .form-field-toolbar {
+        top: 6px;
+        right: 6px;
+    }
+
+    .form-field-drag-handle,
+    .form-field-delete-button {
+        width: 27px;
+        height: 27px;
+    }
+
+    .form-field-drag-handle svg,
+    .form-field-delete-button svg {
+        width: 15px;
+        height: 15px;
+    }
+
+    .form-field-label {
+        padding-right: 60px;
+        font-size: 0.74rem;
+    }
+
+    .form-field input,
+    .form-field select {
+        height: 35px;
+        padding: 0 8px;
+        font-size: 0.7rem;
+    }
+
+    .form-field textarea {
+        min-height: 80px;
+        padding: 8px;
+        font-size: 0.7rem;
+    }
+
+    .form-field-option {
+        gap: 6px;
+        font-size: 0.7rem;
     }
 }

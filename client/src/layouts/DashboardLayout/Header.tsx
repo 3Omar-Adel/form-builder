@@ -1,38 +1,87 @@
-
+import "./Header.css"
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 
 import { useTheme } from "../../app/providers/theme/useTheme";
 import { authStorage } from "../../auth/auth.storage";
 
-const Header = () => {
-    const { theme, toggleTheme } = useTheme();
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-    const user = authStorage.getUser();
+import type {
+    AppDispatch,
+} from "../../redux/store";
+
+import {
+    logout,
+} from "../../redux/authSlice";
+
+interface HeaderProps {
+    onMenuClick: () => void;
+}
+
+const Header = ({
+    onMenuClick,
+}: HeaderProps) => {
+    const {
+        theme,
+        toggleTheme,
+    } = useTheme();
+
+    const dispatch =
+        useDispatch<AppDispatch>();
+
+    const navigate =
+        useNavigate();
+
+    const user =
+        authStorage.getUser();
 
     const handleLogout = () => {
-        authStorage.removeToken();
-        authStorage.removeUser();
+        dispatch(logout());
 
-        window.location.href = "/login";
+        navigate("/login", {
+            replace: true,
+        });
     };
 
-    const displayName = user?.name || "User";
+    const displayName =
+        user?.name || "User";
 
     return (
         <header className="dashboard-header">
-            <div className="header-left">
-                <h1>Dashboard</h1>
 
-                <p>
-                    Welcome back{" "}
-                    <strong>{displayName}</strong>
-                </p>
+            <div className="header-left">
+
+                <button
+                    type="button"
+                    className="mobile-menu-button"
+                    onClick={onMenuClick}
+                    aria-label="Open menu"
+                >
+                    <MenuOutlinedIcon />
+                </button>
+
+                <div>
+                    <h1>
+                        Dashboard
+                    </h1>
+
+                    <p>
+                        Welcome back{" "}
+                        <strong>
+                            {displayName}
+                        </strong>
+                    </p>
+                </div>
+
             </div>
 
             <div className="header-right">
+
                 <button
                     type="button"
                     className="theme-button"
@@ -51,9 +100,13 @@ const Header = () => {
                 </button>
 
                 <div className="header-user">
-                    <AccountCircleOutlinedIcon className="user-icon" />
+
+                    <AccountCircleOutlinedIcon
+                        className="user-icon"
+                    />
 
                     <div className="user-info">
+
                         <span className="user-name">
                             {displayName}
                         </span>
@@ -61,7 +114,9 @@ const Header = () => {
                         <span className="user-email">
                             {user?.email}
                         </span>
+
                     </div>
+
                 </div>
 
                 <button
@@ -73,7 +128,9 @@ const Header = () => {
                 >
                     <LogoutOutlinedIcon />
                 </button>
+
             </div>
+
         </header>
     );
 };

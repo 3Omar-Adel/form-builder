@@ -1,21 +1,38 @@
-import { useNavigate } from "react-router-dom";
+import {
+    useNavigate,
+} from "react-router-dom";
 
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
-import PublishOutlinedIcon from "@mui/icons-material/PublishOutlined";
 
 import "./BuilderHeader.css";
 
-const BuilderHeader = () => {
-    const navigate = useNavigate();
+interface BuilderHeaderProps {
+    onSave: () => void;
+    isSaving: boolean;
+    isEditMode: boolean;
+}
+
+const BuilderHeader = ({
+    onSave,
+    isSaving,
+    isEditMode,
+}: BuilderHeaderProps) => {
+    const navigate =
+        useNavigate();
 
     return (
         <header className="builder-header">
             <div className="builder-header-left">
+
                 <button
                     type="button"
                     className="builder-back-button"
-                    onClick={() => navigate("/dashboard")}
+                    onClick={() =>
+                        navigate(
+                            "/dashboard",
+                        )
+                    }
                     aria-label="Back to dashboard"
                 >
                     <ArrowBackOutlinedIcon />
@@ -23,33 +40,40 @@ const BuilderHeader = () => {
 
                 <div className="builder-title-wrapper">
                     <h1 className="builder-title">
-                        Create Form
+                        {isEditMode
+                            ? "Edit Form"
+                            : "Create Form"}
                     </h1>
 
                     <p className="builder-subtitle">
-                        Build and customize your form
+                        {isEditMode
+                            ? "Update and customize your form"
+                            : "Build and customize your form"}
                     </p>
                 </div>
+
             </div>
 
-            <div className="builder-header-actions">
+            <div className="builder-header-actionss">
+
                 <button
                     type="button"
-                    className="builder-header-button"
+                    className="builder-header-buttonn"
+                    onClick={onSave}
+                    disabled={isSaving}
                 >
                     <SaveOutlinedIcon />
 
-                    <span>Save Draft</span>
+                    <span>
+                        {isSaving
+                            ? "Saving..."
+                            : isEditMode
+                                ? "Save Changes"
+                                : "Save Draft"}
+                    </span>
                 </button>
 
-                <button
-                    type="button"
-                    className="builder-header-button primary"
-                >
-                    <PublishOutlinedIcon />
 
-                    <span>Publish</span>
-                </button>
             </div>
         </header>
     );

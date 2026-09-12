@@ -10,6 +10,7 @@ export type FieldType =
 
 export interface FormFieldOption {
     id: string;
+    label: string;
     value: string;
 }
 

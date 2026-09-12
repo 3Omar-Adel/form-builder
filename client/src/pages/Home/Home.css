@@ -1,0 +1,10 @@
+.home {
+    min-height: 100vh;
+    background: var(--color-background);
+    color: var(--color-text);
+    overflow: hidden;
+}
+
+.home main {
+    width: 100%;
+}

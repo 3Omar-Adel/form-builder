@@ -1,11 +1,24 @@
 import { useState, type SubmitEvent } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { authApi } from "../../api/auth.api";
-import { authStorage } from "../../auth/auth.storage";
+import {
+    useDispatch,
+    useSelector,
+} from "react-redux";
+
+import type {
+    AppDispatch,
+    RootState,
+} from "../../redux/store";
+
+import {
+    registerUser,
+} from "../../redux/authSlice";
 
 const RegisterForm = () => {
     const navigate = useNavigate();
+
+    const dispatch = useDispatch<AppDispatch>();
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -13,49 +26,48 @@ const RegisterForm = () => {
     const [confirmPassword, setConfirmPassword] =
         useState("");
 
-    const [showPassword, setShowPassword] = useState(false);
+    const [showPassword, setShowPassword] =
+        useState(false);
+
     const [showConfirmPassword, setShowConfirmPassword] =
         useState(false);
 
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState("");
+    const isLoading = useSelector(
+        (state: RootState) =>
+            state.auth.isLoading
+    );
+
+    const error = useSelector(
+        (state: RootState) =>
+            state.auth.error
+    );
 
     const handleSubmit = async (
         event: SubmitEvent<HTMLFormElement>,
     ) => {
         event.preventDefault();
 
-        setError("");
-
         if (password !== confirmPassword) {
-            setError("Passwords do not match.");
             return;
         }
 
-        setIsLoading(true);
-
         try {
-            const response = await authApi.register({
-                name,
-                email,
-                password,
+            await dispatch(
+                registerUser({
+                    name,
+                    email,
+                    password,
+                })
+            ).unwrap();
+
+            navigate("/home", {
+                replace: true,
             });
-
-            authStorage.setToken(response.data.token);
-            authStorage.setUser(response.data.user);
-
-            navigate("/dashboard", { replace: true, });
         } catch (error) {
             console.error(
                 "Registration failed:",
                 error,
             );
-
-            setError(
-                "Registration failed. Please check your information and try again.",
-            );
-        } finally {
-            setIsLoading(false);
         }
     };
 
@@ -77,6 +89,16 @@ const RegisterForm = () => {
                     {error}
                 </div>
             )}
+
+            {password !== confirmPassword &&
+                confirmPassword && (
+                    <div
+                        className="register-error"
+                        role="alert"
+                    >
+                        Passwords do not match.
+                    </div>
+                )}
 
             <form
                 className="register-form"
@@ -102,6 +124,7 @@ const RegisterForm = () => {
                         required
                     />
                 </div>
+
                 <div className="register-form-group">
                     <label htmlFor="email">
                         Email address
@@ -226,7 +249,10 @@ const RegisterForm = () => {
                 <button
                     type="submit"
                     className="register-submit"
-                    disabled={isLoading}
+                    disabled={
+                        isLoading ||
+                        password !== confirmPassword
+                    }
                 >
                     {isLoading
                         ? "Creating account..."

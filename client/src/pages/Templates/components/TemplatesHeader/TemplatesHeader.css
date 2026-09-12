@@ -1,0 +1,124 @@
+.templates-header {
+    width: 100%;
+    padding: 30px 32px 24px;
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-background);
+}
+
+.templates-header-content {
+    width: 100%;
+    max-width: 1240px;
+    display: flex;
+    align-items: center;        
+    gap: 15px;
+    margin: 0 auto;
+}
+
+.templates-header-icon {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid
+        color-mix(
+            in srgb,
+            var(--color-primary) 18%,
+            var(--color-border)
+        );
+
+    border-radius: 13px;
+
+    background:
+        color-mix(
+            in srgb,
+            var(--color-primary) 8%,
+            var(--color-surface)
+        );
+
+    color: var(--color-primary);
+}
+
+.templates-header-icon svg {
+    font-size: 22px;
+}
+
+.templates-header-text {
+    min-width: 0;
+}
+
+.templates-header-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.templates-header-title h1 {
+    margin: 0;
+
+    color: var(--color-text);
+
+    font-size: 25px;
+    font-weight: 750;
+
+    line-height: 1.2;
+}
+
+.templates-header-title span {
+    min-width: 25px;
+    height: 22px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 7px;
+
+    border-radius: 999px;
+
+    background: var(--color-surface);
+
+    color: var(--color-text-secondary);
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.templates-header-text p {
+    margin: 5px 0 0;
+
+    color: var(--color-text-secondary);
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+    .templates-header {
+        padding: 24px 16px 20px;
+    }
+
+    .templates-header-content {
+        gap: 12px;
+    }
+
+    .templates-header-icon {
+        width: 40px;
+        height: 40px;
+
+        border-radius: 11px;
+    }
+
+    .templates-header-icon svg {
+        font-size: 19px;
+    }
+
+    .templates-header-title h1 {
+        font-size: 21px;
+    }
+
+    .templates-header-text p {
+        font-size: 12px;
+    }
+}

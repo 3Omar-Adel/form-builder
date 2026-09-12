@@ -160,33 +160,32 @@ const renderField = (
         case "SELECT":
             return (
                 <select
-                    value=""
-                    onChange={() =>
-                        undefined
-                    }
-                    tabIndex={-1}
-                >
-                    <option value="">
-                        Select an option
-                    </option>
+defaultValue=""
+onClick={(event) => {
+event.stopPropagation();
+}}
+onPointerDown={(event) => {
+event.stopPropagation();
+}}
+onChange={(event) => {
+event.stopPropagation();
+}}
+>
+<option value="" disabled >
+Select an option
+</option>
 
-                    {field.options?.map(
-                        (option) => (
-                            <option
-                                key={
-                                    option.id
-                                }
-                                value={
-                                    option.value
-                                }
-                            >
-                                {
-                                    option.value
-                                }
-                            </option>
-                        ),
-                    )}
-                </select>
+        {(field.options ?? []).map(
+            (option) => (
+                <option
+                    key={option.id}
+                    value={option.value}
+                >
+                    {option.label}
+                </option>
+            ),
+        )}
+    </select>
             );
 
         case "RADIO":
@@ -205,12 +204,15 @@ const renderField = (
                                     name={
                                         field.id
                                     }
+                                    value={
+                                        option.value
+                                    }
                                     disabled
                                 />
 
                                 <span>
                                     {
-                                        option.value
+                                        option.label
                                     }
                                 </span>
                             </label>
@@ -232,12 +234,15 @@ const renderField = (
                             >
                                 <input
                                     type="checkbox"
+                                    value={
+                                        option.value
+                                    }
                                     disabled
                                 />
 
                                 <span>
                                     {
-                                        option.value
+                                        option.label
                                     }
                                 </span>
                             </label>

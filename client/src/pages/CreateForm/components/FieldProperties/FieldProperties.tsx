@@ -1,22 +1,13 @@
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
-import type {
-    FormField,
-} from "../../../../types/form";
+import type { FormField } from "../../../../types/form";
 
 import "./FieldProperties.css";
 
 interface FieldPropertiesProps {
     field: FormField | null;
-
-    onUpdateField: (
-        id: string,
-        updates: Partial<FormField>,
-    ) => void;
-
-    onDeleteField: (
-        id: string,
-    ) => void;
+    onUpdateField: (id: string, updates: Partial<FormField>) => void;
+    onDeleteField: (id: string) => void;
 }
 
 const FieldProperties = ({
@@ -29,11 +20,7 @@ const FieldProperties = ({
             <aside className="field-properties">
                 <div className="field-properties-empty">
                     <h2>Properties</h2>
-
-                    <p>
-                        Select a field to edit
-                        its settings.
-                    </p>
+                    <p>Select a field to edit its settings.</p>
                 </div>
             </aside>
         );
@@ -45,46 +32,40 @@ const FieldProperties = ({
         field.type === "CHECKBOX";
 
     const addOption = () => {
-        const currentOptions =
-            field.options ?? [];
+        const currentOptions = field.options ?? [];
+        const optionNumber = currentOptions.length + 1;
+        const optionLabel = `Option ${optionNumber}`;
 
         onUpdateField(field.id, {
             options: [
                 ...currentOptions,
                 {
                     id: crypto.randomUUID(),
-                    value: `Option ${
-                        currentOptions.length + 1
-                    }`,
+                    label: optionLabel,
+                    value: optionLabel,
                 },
             ],
         });
     };
 
-    const updateOption = (
-        optionId: string,
-        value: string,
-    ) => {
+    const updateOption = (optionId: string, text: string) => {
         onUpdateField(field.id, {
-            options: field.options?.map(
-                (option) =>
-                    option.id === optionId
-                        ? {
-                              ...option,
-                              value,
-                          }
-                        : option,
+            options: field.options?.map((option) =>
+                option.id === optionId
+                    ? {
+                        ...option,
+                        label: text,
+                        value: text,
+                    }
+                    : option,
             ),
         });
     };
 
-    const deleteOption = (
-        optionId: string,
-    ) => {
+    const deleteOption = (optionId: string) => {
         onUpdateField(field.id, {
             options: field.options?.filter(
-                (option) =>
-                    option.id !== optionId,
+                (option) => option.id !== optionId,
             ),
         });
     };
@@ -97,9 +78,7 @@ const FieldProperties = ({
                 <button
                     type="button"
                     className="field-properties-delete"
-                    onClick={() =>
-                        onDeleteField(field.id)
-                    }
+                    onClick={() => onDeleteField(field.id)}
                     aria-label="Delete field"
                 >
                     <DeleteOutlineOutlinedIcon />
@@ -108,22 +87,15 @@ const FieldProperties = ({
 
             <div className="field-properties-content">
                 <div className="property-group">
-                    <label htmlFor="field-label">
-                        Label
-                    </label>
+                    <label htmlFor="field-label">Label</label>
 
                     <input
                         id="field-label"
                         value={field.label}
                         onChange={(event) =>
-                            onUpdateField(
-                                field.id,
-                                {
-                                    label:
-                                        event.target
-                                            .value,
-                                },
-                            )
+                            onUpdateField(field.id, {
+                                label: event.target.value,
+                            })
                         }
                     />
                 </div>
@@ -136,19 +108,11 @@ const FieldProperties = ({
 
                         <input
                             id="field-placeholder"
-                            value={
-                                field.placeholder ??
-                                ""
-                            }
+                            value={field.placeholder ?? ""}
                             onChange={(event) =>
-                                onUpdateField(
-                                    field.id,
-                                    {
-                                        placeholder:
-                                            event.target
-                                                .value,
-                                    },
-                                )
+                                onUpdateField(field.id, {
+                                    placeholder: event.target.value,
+                                })
                             }
                         />
                     </div>
@@ -159,14 +123,9 @@ const FieldProperties = ({
                         type="checkbox"
                         checked={field.required}
                         onChange={(event) =>
-                            onUpdateField(
-                                field.id,
-                                {
-                                    required:
-                                        event.target
-                                            .checked,
-                                },
-                            )
+                            onUpdateField(field.id, {
+                                required: event.target.checked,
+                            })
                         }
                     />
 
@@ -187,43 +146,32 @@ const FieldProperties = ({
                         </div>
 
                         <div className="property-options-list">
-                            {field.options?.map(
-                                (option) => (
-                                    <div
-                                        key={
-                                            option.id
+                            {(field.options ?? []).map((option) => (
+                                <div
+                                    key={option.id}
+                                    className="property-option"
+                                >
+                                    <input
+                                        value={option.label}
+                                        onChange={(event) =>
+                                            updateOption(
+                                                option.id,
+                                                event.target.value,
+                                            )
                                         }
-                                        className="property-option"
-                                    >
-                                        <input
-                                            value={
-                                                option.value
-                                            }
-                                            onChange={(
-                                                event,
-                                            ) =>
-                                                updateOption(
-                                                    option.id,
-                                                    event
-                                                        .target
-                                                        .value,
-                                                )
-                                            }
-                                        />
+                                    />
 
-                                        <button
-                                            type="button"
-                                            onClick={() =>
-                                                deleteOption(
-                                                    option.id,
-                                                )
-                                            }
-                                        >
-                                            ×
-                                        </button>
-                                    </div>
-                                ),
-                            )}
+                                    <button
+                                        type="button"
+                                        onClick={() =>
+                                            deleteOption(option.id)
+                                        }
+                                        aria-label="Delete option"
+                                    >
+                                        ×
+                                    </button>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 )}

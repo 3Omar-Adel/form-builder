@@ -7,6 +7,7 @@ import formRoutes from "./routes/form.routes";
 import fieldRoutes from "./routes/field.routes";
 import publicFormRoutes from "./routes/public-form.routes";
 import responseRoutes from "./routes/response.routes";
+import templateRoutes from "./routes/template.routes";
 
 import { notFoundHandler } from "./middleware/not-found.middleware";
 import { errorHandler } from "./middleware/error.middleware";
@@ -26,6 +27,7 @@ app.get("/health", (req, res) => {
 app.use("/api/health", healthRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/forms", formRoutes);
+app.use("/api/templates", templateRoutes);
 app.use("/api/forms", fieldRoutes);
 app.use("/api/public/forms", publicFormRoutes);
 app.use("/api/public/forms", responseRoutes);

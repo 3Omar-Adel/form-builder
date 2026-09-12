@@ -1,0 +1,51 @@
+.template-empty {
+    max-width: 1240px;
+
+    margin: 20px auto;
+
+    padding: 80px 24px;
+
+    text-align: center;
+}
+
+.template-empty-icon {
+    width: 64px;
+    height: 64px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 18px;
+
+    border-radius: 18px;
+
+    background:
+        color-mix(
+            in srgb,
+            var(--color-primary) 10%,
+            transparent
+        );
+
+    color: var(--color-primary);
+}
+
+.template-empty-icon svg {
+    font-size: 30px;
+}
+
+.template-empty h2 {
+    margin: 0;
+
+    color: var(--color-text);
+
+    font-size: 22px;
+}
+
+.template-empty p {
+    margin: 9px 0 0;
+
+    color: var(--color-text-secondary);
+
+    font-size: 14px;
+}

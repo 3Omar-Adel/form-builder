@@ -1,0 +1,452 @@
+.dashboard-table-container {
+    width: 100%;
+    min-width: 0;
+}
+
+.dashboard-table-wrapper {
+    width: 100%;
+    min-width: 0;
+
+    overflow-x: auto;
+
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+
+    background-color: var(--color-surface);
+
+    scrollbar-width: thin;
+}
+
+
+/* =========================
+   Table
+========================= */
+
+.dashboard-forms-table {
+    width: 100%;
+    min-width: 760px;
+
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+
+/* =========================
+   Header
+========================= */
+
+.dashboard-forms-table th {
+    padding: 15px 16px;
+
+    border-bottom: 1px solid var(--color-border);
+
+    background-color: var(--color-surface-hover);
+
+    color: var(--color-text-muted);
+
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.3;
+
+    text-align: left;
+    white-space: nowrap;
+}
+
+
+/* =========================
+   Body
+========================= */
+
+.dashboard-forms-table td {
+    padding: 16px;
+
+    border-bottom: 1px solid var(--color-border);
+
+    color: var(--color-text);
+
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.dashboard-forms-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.dashboard-forms-table tbody tr:hover {
+    background-color: var(--color-surface-hover);
+}
+
+.dashboard-forms-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================
+   Column Widths
+========================= */
+
+.dashboard-forms-table th:nth-child(1),
+.dashboard-forms-table td:nth-child(1) {
+    width: 28%;
+}
+
+.dashboard-forms-table th:nth-child(2),
+.dashboard-forms-table td:nth-child(2) {
+    width: 17%;
+}
+
+.dashboard-forms-table th:nth-child(3),
+.dashboard-forms-table td:nth-child(3) {
+    width: 15%;
+}
+
+.dashboard-forms-table th:nth-child(4),
+.dashboard-forms-table td:nth-child(4) {
+    width: 21%;
+}
+
+.dashboard-forms-table th:nth-child(5),
+.dashboard-forms-table td:nth-child(5) {
+    width: 19%;
+}
+
+
+/* =========================
+   Form Name
+========================= */
+
+.dashboard-form-name {
+    width: 100%;
+    min-width: 0;
+
+    overflow: hidden;
+
+    color: var(--color-text);
+
+    font-weight: 600;
+}
+
+.dashboard-form-name span {
+    display: block;
+
+    width: 100%;
+    min-width: 0;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* =========================
+   Status
+========================= */
+
+.dashboard-status {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 5px;
+
+    max-width: 100%;
+
+    padding: 5px 8px;
+
+    border-radius: 999px;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+.dashboard-status svg {
+    flex-shrink: 0;
+    font-size: 14px;
+}
+
+.dashboard-status.published {
+    background-color: rgba(34, 197, 94, 0.1);
+    color: #16a34a;
+}
+
+.dashboard-status.draft {
+    background-color: rgba(234, 179, 8, 0.1);
+    color: #ca8a04;
+}
+
+.dashboard-status.archived {
+    background-color: rgba(107, 114, 128, 0.12);
+    color: var(--color-text-muted);
+}
+
+
+/* =========================
+   Submissions
+========================= */
+
+.dashboard-submissions {
+    font-weight: 600;
+}
+
+
+/* =========================
+   Recent Responses
+========================= */
+
+.dashboard-response-count {
+    display: inline-block;
+
+    max-width: 100%;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    color: var(--color-text);
+}
+
+.dashboard-no-responses {
+    color: var(--color-text-muted);
+}
+
+
+/* =========================
+   Last Updated
+========================= */
+
+.dashboard-last-updated {
+    display: block;
+
+    max-width: 100%;
+
+    overflow: hidden;
+
+    color: var(--color-text-muted);
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* =========================
+   Pagination
+========================= */
+
+.dashboard-pagination {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 8px;
+
+    margin-top: 16px;
+}
+
+.dashboard-pagination-pages {
+    display: flex;
+    align-items: center;
+
+    gap: 4px;
+}
+
+.dashboard-pagination-button,
+.dashboard-pagination-page {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    padding: 0;
+
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+
+    background-color: var(--color-surface);
+    color: var(--color-text);
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.dashboard-pagination-button:hover:not(:disabled),
+.dashboard-pagination-page:hover {
+    background-color: var(--color-surface-hover);
+}
+
+.dashboard-pagination-page.active {
+    border-color: var(--color-primary);
+
+    background-color: var(--color-primary);
+    color: #ffffff;
+}
+
+.dashboard-pagination-button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.dashboard-pagination-button svg {
+    font-size: 19px;
+}
+
+.dashboard-pagination-page {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* =========================
+   Tablet
+========================= */
+
+@media (max-width: 900px) {
+    .dashboard-forms-table {
+        min-width: 700px;
+    }
+
+    .dashboard-forms-table th,
+    .dashboard-forms-table td {
+        padding: 13px 12px;
+    }
+
+    .dashboard-forms-table th {
+        font-size: 11px;
+    }
+
+    .dashboard-forms-table td {
+        font-size: 12px;
+    }
+
+    .dashboard-status {
+        padding: 4px 7px;
+        font-size: 10px;
+    }
+
+    .dashboard-status svg {
+        font-size: 13px;
+    }
+}
+
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 600px) {
+    .dashboard-table-wrapper {
+        border-radius: 12px;
+    }
+
+    .dashboard-forms-table {
+        min-width: 620px;
+    }
+
+    .dashboard-forms-table th {
+        padding: 12px 9px;
+
+        font-size: 10px;
+    }
+
+    .dashboard-forms-table td {
+        padding: 13px 9px;
+
+        font-size: 11px;
+    }
+
+    .dashboard-forms-table th:nth-child(1),
+    .dashboard-forms-table td:nth-child(1) {
+        width: 25%;
+    }
+
+    .dashboard-forms-table th:nth-child(2),
+    .dashboard-forms-table td:nth-child(2) {
+        width: 17%;
+    }
+
+    .dashboard-forms-table th:nth-child(3),
+    .dashboard-forms-table td:nth-child(3) {
+        width: 13%;
+    }
+
+    .dashboard-forms-table th:nth-child(4),
+    .dashboard-forms-table td:nth-child(4) {
+        width: 22%;
+    }
+
+    .dashboard-forms-table th:nth-child(5),
+    .dashboard-forms-table td:nth-child(5) {
+        width: 23%;
+    }
+
+    .dashboard-status {
+        gap: 4px;
+
+        padding: 4px 6px;
+
+        font-size: 9px;
+    }
+
+    .dashboard-status svg {
+        font-size: 12px;
+    }
+
+    .dashboard-pagination {
+        justify-content: center;
+
+        margin-top: 13px;
+    }
+
+    .dashboard-pagination-button,
+    .dashboard-pagination-page {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+
+/* =========================
+   Small Mobile
+========================= */
+
+@media (max-width: 380px) {
+    .dashboard-forms-table {
+        min-width: 590px;
+    }
+
+    .dashboard-forms-table th,
+    .dashboard-forms-table td {
+        padding-left: 7px;
+        padding-right: 7px;
+    }
+
+    .dashboard-forms-table th {
+        font-size: 9px;
+    }
+
+    .dashboard-forms-table td {
+        font-size: 10px;
+    }
+
+    .dashboard-status {
+        padding: 3px 5px;
+
+        font-size: 8px;
+    }
+
+    .dashboard-status svg {
+        font-size: 11px;
+    }
+}

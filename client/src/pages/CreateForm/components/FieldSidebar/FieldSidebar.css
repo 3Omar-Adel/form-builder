@@ -1,12 +1,10 @@
 .field-sidebar {
     height: 100%;
+    min-width: 0;
     overflow-y: auto;
-
     padding: 20px 16px;
-
     background: var(--color-surface);
     border-right: 1px solid var(--color-border);
-
     scrollbar-width: none;
 }
 
@@ -20,18 +18,14 @@
 
 .field-sidebar-title {
     margin: 0;
-
     color: var(--color-text);
-
     font-size: 0.9rem;
     font-weight: 700;
 }
 
 .field-sidebar-description {
     margin: 5px 0 0;
-
     color: var(--color-text-muted);
-
     font-size: 0.75rem;
     line-height: 1.5;
 }
@@ -39,32 +33,22 @@
 .field-sidebar-list {
     display: flex;
     flex-direction: column;
-
     gap: 7px;
 }
 
 .field-sidebar-item {
     width: 100%;
     min-height: 52px;
-
     display: flex;
     align-items: center;
-
     gap: 11px;
-
     padding: 9px 11px;
-
     border: 1px solid var(--color-border);
     border-radius: 10px;
-
     background: var(--color-surface);
-
     color: var(--color-text);
-
     cursor: grab;
-
     text-align: left;
-
     transition:
         background-color 0.2s ease,
         border-color 0.2s ease,
@@ -75,13 +59,9 @@
 
 .field-sidebar-item:hover {
     background: var(--color-surface-hover);
-
     border-color: var(--color-primary);
-
     transform: translateY(-1px);
-
-    box-shadow:
-        0 3px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
 }
 
 .field-sidebar-item:active {
@@ -90,24 +70,18 @@
 
 .field-sidebar-item.dragging {
     opacity: 0.45;
-
     border-color: var(--color-primary);
 }
 
 .field-sidebar-icon {
     width: 34px;
     height: 34px;
-
     flex-shrink: 0;
-
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
     border-radius: 8px;
-
     background: var(--color-surface-hover);
-
     color: var(--color-primary);
 }
 
@@ -121,28 +95,108 @@
 
 .field-sidebar-item-title {
     display: block;
-
     color: var(--color-text);
-
     font-size: 0.8rem;
     font-weight: 600;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
     .field-sidebar {
         height: auto;
-
+        padding: 18px 20px;
         border-right: 0;
         border-bottom: 1px solid var(--color-border);
     }
 
+    .field-sidebar-header {
+        margin-bottom: 14px;
+    }
+
     .field-sidebar-list {
         display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 8px;
+    }
 
-        grid-template-columns:
-            repeat(
-                2,
-                minmax(0, 1fr)
-            );
+    .field-sidebar-item {
+        min-height: 48px;
+        padding: 8px 10px;
+    }
+
+    .field-sidebar-icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    .field-sidebar-icon svg {
+        font-size: 17px;
+    }
+
+    .field-sidebar-item-title {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .field-sidebar {
+        padding: 16px;
+    }
+
+    .field-sidebar-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .field-sidebar-item {
+        min-height: 46px;
+        padding: 7px 9px;
+        gap: 9px;
+    }
+
+    .field-sidebar-icon {
+        width: 29px;
+        height: 29px;
+        border-radius: 7px;
+    }
+
+    .field-sidebar-icon svg {
+        font-size: 16px;
+    }
+
+    .field-sidebar-item-title {
+        font-size: 0.73rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .field-sidebar {
+        padding: 14px 12px;
+    }
+
+    .field-sidebar-description {
+        font-size: 0.7rem;
+    }
+
+    .field-sidebar-list {
+        gap: 6px;
+    }
+
+    .field-sidebar-item {
+        min-height: 44px;
+        padding: 6px 8px;
+        gap: 7px;
+    }
+
+    .field-sidebar-icon {
+        width: 27px;
+        height: 27px;
+    }
+
+    .field-sidebar-icon svg {
+        font-size: 15px;
+    }
+
+    .field-sidebar-item-title {
+        font-size: 0.7rem;
     }
 }

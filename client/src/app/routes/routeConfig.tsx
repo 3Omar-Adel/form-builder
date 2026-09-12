@@ -8,6 +8,9 @@ import DashboardLayout from "../../layouts/DashboardLayout/DashboardLayout";
 import ProtectedRoute from "./ProtectedRoute";
 import Forms from "../../pages/Forms/Forms";
 import CreateForm from "../../pages/CreateForm/CreateForm";
+import FormDetails from "../../pages/Forms/FormDetails/FormDetails";
+import PublicForm from "../../pages/PublicForm/PublicForm";
+import Templates from "../../pages/Templates/Templates";
 
 export const router = createBrowserRouter([
     { path: "/", element: <Home />, },
@@ -33,14 +36,29 @@ export const router = createBrowserRouter([
                         element: <Forms />,
                     },
                     {
+                    path: "/templates",
+                    element: <Templates />,
+                    },
+                    {
                         path: "/forms/new",
                         element: <CreateForm />,
                     },
-
+                    {
+    path: "/forms/:id/edit",
+    element: <CreateForm />,
+},
+                    {
+                        path: "/forms/:id",
+                        element: <FormDetails />,
+                    },
                 ],
             },
         ],
     },
+    {
+    path: "/forms/public/:slug",
+    element: <PublicForm />,
+},
     {
         path: "*",
         element: <Navigate to="/" replace />,

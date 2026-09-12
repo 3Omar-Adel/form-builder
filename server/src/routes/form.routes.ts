@@ -10,6 +10,7 @@ import {
   archive,
   unpublish,
   restore,
+  getPublished,
 } from "../controllers/form.controller";
 
 import { authenticate } from "../middleware/auth.middleware";
@@ -58,6 +59,11 @@ router.post(
   "/:id/archive",
   authenticate,
   archive
+);
+
+router.get(
+  "/public/:slug",
+  getPublished
 );
 
 router.get(

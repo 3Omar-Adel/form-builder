@@ -8,15 +8,21 @@ import {
     type Form,
 } from "../../api/form.api";
 
+import {
+    useNavigate,
+} from "react-router-dom";
+
 import "./Forms.css";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
 const Forms = () => {
+    const navigate = useNavigate();
+
     const [forms, setForms] = useState<Form[]>([]);
     const [isLoading, setIsLoading] =
         useState(true);
 
-    const [error, setError] =
-        useState("");
+    const [error, setError] =useState("");
 
     useEffect(() => {
         const getForms = async () => {
@@ -43,6 +49,27 @@ const Forms = () => {
 
         getForms();
     }, []);
+
+    const handleDelete = async (id: string) => {
+        try {
+            await formApi.deleteForm(id);
+
+            setForms((currentForms) =>
+                currentForms.filter(
+                    (form) => form.id !== id
+                )
+            );
+        } catch (error) {
+            console.error(
+                "Failed to delete form:",
+                error,
+            );
+
+            setError(
+                "Failed to delete form. Please try again.",
+            );
+        }
+    };
 
     if (isLoading) {
         return (
@@ -86,6 +113,11 @@ const Forms = () => {
                         <div
                             className="form-card"
                             key={form.id}
+                            onClick={() =>
+                                navigate(
+                                    `/forms/${form.id}`,
+                                )
+                            }
                         >
                             <div>
                                 <h3>
@@ -110,6 +142,15 @@ const Forms = () => {
                                             ?.responses
                                     }{" "}
                                     responses
+                                </span>
+                                <span
+                                    onClick={(event) => {
+                                        event.stopPropagation();
+
+                                        handleDelete(form.id);
+                                    }}
+                                >
+                                    <DeleteOutlineOutlinedIcon className="delete-form" />
                                 </span>
                             </div>
                         </div>

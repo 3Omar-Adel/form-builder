@@ -1,5 +1,5 @@
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import {
     DndContext,
     PointerSensor,
@@ -8,14 +8,16 @@ import {
     useSensors,
     type DragEndEvent,
 } from "@dnd-kit/core";
+import { arrayMove } from "@dnd-kit/sortable";
 
-import {
-    arrayMove,
-} from "@dnd-kit/sortable";
+import { useSaveForm } from "../../hooks/useSaveForm";
+import { fromServerFields } from "../../api/field.mapper";
+import { formApi } from "../../api/form.api";
 
 import type {
     FieldType,
     FormField,
+    FormFieldOption,
 } from "../../types/form";
 
 import BuilderHeader from "./components/BuilderHeader/BuilderHeader";
@@ -26,10 +28,46 @@ import FieldProperties from "./components/FieldProperties/FieldProperties";
 import "./CreateForm.css";
 
 const CreateForm = () => {
-    const [fields, setFields] = useState<FormField[]>([]);
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const isEditMode = Boolean(id);
 
-    const [selectedFieldId, setSelectedFieldId] =
-        useState<string | null>(null);
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [fields, setFields] = useState<FormField[]>([]);
+    const [initialFields, setInitialFields] = useState<FormField[]>([]);
+    const [selectedFieldId, setSelectedFieldId] = useState<string | null>(null);
+
+    const { isSaving, error, saveForm } = useSaveForm({
+        formId: id,
+        title,
+        description,
+        fields,
+        initialFields,
+    });
+
+    useEffect(() => {
+        if (!id) {
+            return;
+        }
+
+        const loadForm = async () => {
+            try {
+                const response = await formApi.getById(id);
+                const form = response.data.form;
+                const loadedFields = fromServerFields(form.fields ?? []);
+
+                setTitle(form.title);
+                setDescription(form.description ?? "");
+                setFields(loadedFields);
+                setInitialFields(loadedFields);
+            } catch (error) {
+                console.error("Failed to load form:", error);
+            }
+        };
+
+        loadForm();
+    }, [id]);
 
     const sensors = useSensors(
         useSensor(PointerSensor, {
@@ -39,124 +77,64 @@ const CreateForm = () => {
         }),
     );
 
-    /*
-     * Add a new field to the form.
-     */
-    const addField = (
-        type: FieldType,
-        insertIndex?: number,
-    ) => {
+    const addField = (type: FieldType, insertIndex?: number) => {
         const newField: FormField = {
             id: crypto.randomUUID(),
-
             type,
-
             label: getDefaultLabel(type),
-
             placeholder: "",
-
             required: false,
-
-            position:
-                insertIndex ??
-                fields.length,
-
+            position: insertIndex ?? fields.length,
             options: getDefaultOptions(type),
         };
 
         setFields((currentFields) => {
-            const index =
-                insertIndex ??
-                currentFields.length;
+            const index = insertIndex ?? currentFields.length;
+            const updatedFields = [...currentFields];
 
-            const updatedFields = [
-                ...currentFields,
-            ];
+            updatedFields.splice(index, 0, newField);
 
-            updatedFields.splice(
-                index,
-                0,
-                newField,
-            );
-
-            return updatedFields.map(
-                (field, position) => ({
-                    ...field,
-                    position,
-                }),
-            );
+            return updatedFields.map((field, position) => ({
+                ...field,
+                position,
+            }));
         });
 
         setSelectedFieldId(newField.id);
     };
 
-    /*
-     * Delete field.
-     */
-    const deleteField = (
-        id: string,
-    ) => {
+    const deleteField = (fieldId: string) => {
         setFields((currentFields) =>
             currentFields
-                .filter(
-                    (field) =>
-                        field.id !== id,
-                )
-                .map(
-                    (
-                        field,
-                        index,
-                    ) => ({
-                        ...field,
-                        position: index,
-                    }),
-                ),
+                .filter((field) => field.id !== fieldId)
+                .map((field, index) => ({
+                    ...field,
+                    position: index,
+                })),
         );
 
-        if (
-            selectedFieldId === id
-        ) {
+        if (selectedFieldId === fieldId) {
             setSelectedFieldId(null);
         }
     };
 
-    /*
-     * Update field properties.
-     */
     const updateField = (
-        id: string,
+        fieldId: string,
         updates: Partial<FormField>,
     ) => {
         setFields((currentFields) =>
-            currentFields.map(
-                (field) =>
-                    field.id === id
-                        ? {
-                              ...field,
-                              ...updates,
-                          }
-                        : field,
+            currentFields.map((field) =>
+                field.id === fieldId
+                    ? { ...field, ...updates }
+                    : field,
             ),
         );
     };
 
-    /*
-     * Reorder existing fields.
-     */
-    const reorderFields = (
-        oldIndex: number,
-        newIndex: number,
-    ) => {
+    const reorderFields = (oldIndex: number, newIndex: number) => {
         setFields((currentFields) =>
-            arrayMove(
-                currentFields,
-                oldIndex,
-                newIndex,
-            ).map(
-                (
-                    field,
-                    index,
-                ) => ({
+            arrayMove(currentFields, oldIndex, newIndex).map(
+                (field, index) => ({
                     ...field,
                     position: index,
                 }),
@@ -164,173 +142,107 @@ const CreateForm = () => {
         );
     };
 
-    /*
-     * Handle every drag operation.
-     */
-    const handleDragEnd = (
-    event: DragEndEvent,
-) => {
-    const {
-        active,
-        over,
-    } = event;
-
-    const activeData =
-        active.data.current;
-
-    /*
-     * Sidebar → Canvas
-     */
-    if (
-        activeData?.source ===
-        "sidebar"
-    ) {
-        const fieldType =
-            activeData.type as FieldType;
+    const handleDragEnd = (event: DragEndEvent) => {
+        const { active, over } = event;
 
         if (!over) {
             return;
         }
 
-        /*
-         * Dropped directly on the canvas
-         */
-        if (
-            over.id === "form-canvas"
-        ) {
-            addField(fieldType);
-            return;
-        }
+        const activeData = active.data.current;
 
-        /*
-         * Dropped on an existing field
-         */
-        const overIndex =
-            fields.findIndex(
-                (field) =>
-                    field.id === over.id,
+        if (activeData?.source === "sidebar") {
+            const fieldType = activeData.type as FieldType;
+
+            if (over.id === "form-canvas") {
+                addField(fieldType);
+                return;
+            }
+
+            const overIndex = fields.findIndex(
+                (field) => field.id === over.id,
             );
 
-        if (overIndex !== -1) {
-            addField(
-                fieldType,
-                overIndex,
-            );
-        }
+            if (overIndex !== -1) {
+                addField(fieldType, overIndex);
+            }
 
-        return;
-    }
-
-    /*
-     * Canvas → Canvas
-     */
-    if (
-        activeData?.source ===
-        "canvas"
-    ) {
-        if (!over) {
             return;
         }
 
-        /*
-         * Dropped on the canvas itself.
-         * Don't reorder in this case.
-         */
-        if (
-            over.id === "form-canvas"
-        ) {
-            return;
-        }
+        if (activeData?.source === "canvas") {
+            if (over.id === "form-canvas" || active.id === over.id) {
+                return;
+            }
 
-        /*
-         * Same field
-         */
-        if (
-            active.id === over.id
-        ) {
-            return;
-        }
-
-        const oldIndex =
-            fields.findIndex(
-                (field) =>
-                    field.id ===
-                    active.id,
+            const oldIndex = fields.findIndex(
+                (field) => field.id === active.id,
             );
 
-        const newIndex =
-            fields.findIndex(
-                (field) =>
-                    field.id ===
-                    over.id,
+            const newIndex = fields.findIndex(
+                (field) => field.id === over.id,
             );
 
-        if (
-            oldIndex === -1 ||
-            newIndex === -1
-        ) {
-            return;
-        }
+            if (oldIndex === -1 || newIndex === -1) {
+                return;
+            }
 
-        reorderFields(
-            oldIndex,
-            newIndex,
-        );
-    }
-};
+            reorderFields(oldIndex, newIndex);
+        }
+    };
 
     const selectedField =
-        fields.find(
-            (field) =>
-                field.id ===
-                selectedFieldId,
-        ) ?? null;
+        fields.find((field) => field.id === selectedFieldId) ?? null;
+
+    const handleSave = async () => {
+        const formId = await saveForm();
+
+        if (!formId) {
+            return;
+        }
+
+        navigate(`/forms/${formId}`);
+    };
 
     return (
         <DndContext
             sensors={sensors}
-            collisionDetection={
-                closestCenter
-            }
-            onDragEnd={
-                handleDragEnd
-            }
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
         >
             <div className="create-form-page">
-                <BuilderHeader />
+                <BuilderHeader
+                    onSave={handleSave}
+                    isSaving={isSaving}
+                    isEditMode={isEditMode}
+                />
+
+                {error && (
+                    <div className="create-form-error">
+                        {error}
+                    </div>
+                )}
 
                 <div className="create-form-workspace">
-                    <FieldSidebar
-                        onAddField={
-                            addField
-                        }
-                    />
+                    <FieldSidebar onAddField={addField} />
 
                     <main className="create-form-canvas">
                         <FormCanvas
+                            title={title}
+                            description={description}
                             fields={fields}
-                            selectedFieldId={
-                                selectedFieldId
-                            }
-                            onSelectField={
-                                setSelectedFieldId
-                            }
-                            onDeleteField={
-                                deleteField
-                            }
+                            selectedFieldId={selectedFieldId}
+                            onChangeTitle={setTitle}
+                            onChangeDescription={setDescription}
+                            onSelectField={setSelectedFieldId}
+                            onDeleteField={deleteField}
                         />
                     </main>
 
                     <FieldProperties
-                        field={
-                            selectedField
-                        }
-                        onUpdateField={
-                            updateField
-                        }
-                        onDeleteField={
-                            deleteField
-                        }
+                        field={selectedField}
+                        onUpdateField={updateField}
+                        onDeleteField={deleteField}
                     />
                 </div>
             </div>
@@ -338,34 +250,24 @@ const CreateForm = () => {
     );
 };
 
-const getDefaultLabel = (
-    type: FieldType,
-) => {
+const getDefaultLabel = (type: FieldType) => {
     switch (type) {
         case "TEXT":
             return "Text field";
-
         case "EMAIL":
             return "Email address";
-
         case "NUMBER":
             return "Number";
-
         case "TEXTAREA":
             return "Text area";
-
         case "SELECT":
             return "Select an option";
-
         case "RADIO":
             return "Choose an option";
-
         case "CHECKBOX":
             return "Checkbox";
-
         case "DATE":
             return "Date";
-
         default:
             return "New field";
     }
@@ -373,25 +275,22 @@ const getDefaultLabel = (
 
 const getDefaultOptions = (
     type: FieldType,
-) => {
-    const choiceFieldTypes = [
+): FormFieldOption[] | undefined => {
+    const choiceFieldTypes: FieldType[] = [
         "SELECT",
         "RADIO",
         "CHECKBOX",
     ];
 
-    if (
-        !choiceFieldTypes.includes(
-            type,
-        )
-    ) {
+    if (!choiceFieldTypes.includes(type)) {
         return undefined;
     }
 
     return [
         {
             id: crypto.randomUUID(),
-            value: "Option 1",
+            label: "Option 1",
+            value: "option-1",
         },
     ];
 };
