@@ -13,8 +13,11 @@ export const checkDatabase = async () => {
         }
     }
 
+    await prisma.$queryRaw`SELECT 1`;
+
     return {
-        databaseUrlExists: Boolean(databaseUrl),
+        status: "ok",
+        database: "connected",
         host,
     };
 };
