@@ -3,23 +3,18 @@ import { prisma } from "../config/prisma";
 export const checkDatabase = async () => {
     const databaseUrl = process.env.DATABASE_URL;
 
-    let databaseHost = "missing";
+    let host = "missing";
 
     if (databaseUrl) {
         try {
-            databaseHost = new URL(databaseUrl).hostname;
+            host = new URL(databaseUrl).hostname;
         } catch {
-            databaseHost = "invalid-url";
+            host = "invalid-url";
         }
     }
 
-    console.log("DATABASE HOST:", databaseHost);
-
-    await prisma.$queryRaw`SELECT 1`;
-
     return {
-        status: "ok",
-        database: "connected",
-        host: databaseHost,
+        databaseUrlExists: Boolean(databaseUrl),
+        host,
     };
 };
