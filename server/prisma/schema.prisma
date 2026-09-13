@@ -7,6 +7,86 @@ datasource db {
   provider = "postgresql"
 }
 
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  forms     Form[]
+}
+
+model Form {
+  id          String      @id @default(cuid())
+  title       String
+  description String?
+  slug        String      @unique
+  status      FormStatus  @default(DRAFT)
+  userId      String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  isTemplate  Boolean     @default(false)
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fields      FormField[]
+  responses   Response[]
+
+  @@index([userId])
+}
+
+model FormField {
+  id        String           @id @default(cuid())
+  label     String
+  type      FieldType
+  required  Boolean          @default(false)
+  position  Int
+  formId    String
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  options   FieldOption[]
+  form      Form             @relation(fields: [formId], references: [id], onDelete: Cascade)
+  answers   ResponseAnswer[]
+
+  @@unique([formId, position])
+  @@index([formId])
+}
+
+model FieldOption {
+  id       String    @id @default(cuid())
+  label    String
+  value    String
+  position Int
+  fieldId  String
+  field    FormField @relation(fields: [fieldId], references: [id], onDelete: Cascade)
+
+  @@unique([fieldId, position])
+  @@index([fieldId])
+}
+
+model Response {
+  id        String           @id @default(cuid())
+  formId    String
+  createdAt DateTime         @default(now())
+  form      Form             @relation(fields: [formId], references: [id], onDelete: Cascade)
+  answers   ResponseAnswer[]
+
+  @@index([formId])
+}
+
+model ResponseAnswer {
+  id         String    @id @default(cuid())
+  value      String
+  responseId String
+  fieldId    String
+  createdAt  DateTime  @default(now())
+  field      FormField @relation(fields: [fieldId], references: [id], onDelete: Cascade)
+  response   Response  @relation(fields: [responseId], references: [id], onDelete: Cascade)
+
+  @@unique([responseId, fieldId])
+  @@index([responseId])
+  @@index([fieldId])
+}
+
 enum FormStatus {
   DRAFT
   PUBLISHED
@@ -22,97 +102,4 @@ enum FieldType {
   RADIO
   CHECKBOX
   DATE
-}
-
-model User {
-  id        String   @id @default(cuid())
-  name      String
-  email     String   @unique
-  password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  forms Form[]
-}
-
-model Form {
-  id          String     @id @default(cuid())
-  title       String
-  description String?
-  slug        String     @unique
-  status      FormStatus @default(DRAFT)
-  isTemplate Boolean @default(false)
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  fields    FormField[]
-  responses Response[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([userId])
-}
-
-model FormField {
-  id       String    @id @default(cuid())
-  label    String
-  type     FieldType
-  required Boolean   @default(false)
-  position Int
-
-  formId  String
-  form    Form             @relation(fields: [formId], references: [id], onDelete: Cascade)
-  options FieldOption[]
-  answers ResponseAnswer[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@unique([formId, position])
-  @@index([formId])
-}
-
-model FieldOption {
-  id       String @id @default(cuid())
-  label    String
-  value    String
-  position Int
-
-  fieldId String
-  field   FormField @relation(fields: [fieldId], references: [id], onDelete: Cascade)
-
-  @@unique([fieldId, position])
-  @@index([fieldId])
-}
-
-model Response {
-  id String @id @default(cuid())
-
-  formId String
-  form   Form   @relation(fields: [formId], references: [id], onDelete: Cascade)
-
-  answers ResponseAnswer[]
-
-  createdAt DateTime @default(now())
-
-  @@index([formId])
-}
-
-model ResponseAnswer {
-  id    String @id @default(cuid())
-  value String
-
-  responseId String
-  response   Response @relation(fields: [responseId], references: [id], onDelete: Cascade)
-
-  fieldId String
-  field   FormField @relation(fields: [fieldId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-
-  @@unique([responseId, fieldId])
-  @@index([responseId])
-  @@index([fieldId])
 }

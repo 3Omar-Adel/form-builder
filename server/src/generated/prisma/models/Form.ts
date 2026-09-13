@@ -30,10 +30,10 @@ export type FormMinAggregateOutputType = {
   description: string | null
   slug: string | null
   status: $Enums.FormStatus | null
-  isTemplate: boolean | null
   userId: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  isTemplate: boolean | null
 }
 
 export type FormMaxAggregateOutputType = {
@@ -42,10 +42,10 @@ export type FormMaxAggregateOutputType = {
   description: string | null
   slug: string | null
   status: $Enums.FormStatus | null
-  isTemplate: boolean | null
   userId: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  isTemplate: boolean | null
 }
 
 export type FormCountAggregateOutputType = {
@@ -54,10 +54,10 @@ export type FormCountAggregateOutputType = {
   description: number
   slug: number
   status: number
-  isTemplate: number
   userId: number
   createdAt: number
   updatedAt: number
+  isTemplate: number
   _all: number
 }
 
@@ -68,10 +68,10 @@ export type FormMinAggregateInputType = {
   description?: true
   slug?: true
   status?: true
-  isTemplate?: true
   userId?: true
   createdAt?: true
   updatedAt?: true
+  isTemplate?: true
 }
 
 export type FormMaxAggregateInputType = {
@@ -80,10 +80,10 @@ export type FormMaxAggregateInputType = {
   description?: true
   slug?: true
   status?: true
-  isTemplate?: true
   userId?: true
   createdAt?: true
   updatedAt?: true
+  isTemplate?: true
 }
 
 export type FormCountAggregateInputType = {
@@ -92,10 +92,10 @@ export type FormCountAggregateInputType = {
   description?: true
   slug?: true
   status?: true
-  isTemplate?: true
   userId?: true
   createdAt?: true
   updatedAt?: true
+  isTemplate?: true
   _all?: true
 }
 
@@ -177,10 +177,10 @@ export type FormGroupByOutputType = {
   description: string | null
   slug: string
   status: $Enums.FormStatus
-  isTemplate: boolean
   userId: string
   createdAt: Date
   updatedAt: Date
+  isTemplate: boolean
   _count: FormCountAggregateOutputType | null
   _min: FormMinAggregateOutputType | null
   _max: FormMaxAggregateOutputType | null
@@ -210,10 +210,10 @@ export type FormWhereInput = {
   description?: Prisma.StringNullableFilter<"Form"> | string | null
   slug?: Prisma.StringFilter<"Form"> | string
   status?: Prisma.EnumFormStatusFilter<"Form"> | $Enums.FormStatus
-  isTemplate?: Prisma.BoolFilter<"Form"> | boolean
   userId?: Prisma.StringFilter<"Form"> | string
   createdAt?: Prisma.DateTimeFilter<"Form"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Form"> | Date | string
+  isTemplate?: Prisma.BoolFilter<"Form"> | boolean
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   fields?: Prisma.FormFieldListRelationFilter
   responses?: Prisma.ResponseListRelationFilter
@@ -225,10 +225,10 @@ export type FormOrderByWithRelationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   slug?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  isTemplate?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isTemplate?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   fields?: Prisma.FormFieldOrderByRelationAggregateInput
   responses?: Prisma.ResponseOrderByRelationAggregateInput
@@ -243,10 +243,10 @@ export type FormWhereUniqueInput = Prisma.AtLeast<{
   title?: Prisma.StringFilter<"Form"> | string
   description?: Prisma.StringNullableFilter<"Form"> | string | null
   status?: Prisma.EnumFormStatusFilter<"Form"> | $Enums.FormStatus
-  isTemplate?: Prisma.BoolFilter<"Form"> | boolean
   userId?: Prisma.StringFilter<"Form"> | string
   createdAt?: Prisma.DateTimeFilter<"Form"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Form"> | Date | string
+  isTemplate?: Prisma.BoolFilter<"Form"> | boolean
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   fields?: Prisma.FormFieldListRelationFilter
   responses?: Prisma.ResponseListRelationFilter
@@ -258,10 +258,10 @@ export type FormOrderByWithAggregationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   slug?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  isTemplate?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isTemplate?: Prisma.SortOrder
   _count?: Prisma.FormCountOrderByAggregateInput
   _max?: Prisma.FormMaxOrderByAggregateInput
   _min?: Prisma.FormMinOrderByAggregateInput
@@ -276,10 +276,10 @@ export type FormScalarWhereWithAggregatesInput = {
   description?: Prisma.StringNullableWithAggregatesFilter<"Form"> | string | null
   slug?: Prisma.StringWithAggregatesFilter<"Form"> | string
   status?: Prisma.EnumFormStatusWithAggregatesFilter<"Form"> | $Enums.FormStatus
-  isTemplate?: Prisma.BoolWithAggregatesFilter<"Form"> | boolean
   userId?: Prisma.StringWithAggregatesFilter<"Form"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Form"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Form"> | Date | string
+  isTemplate?: Prisma.BoolWithAggregatesFilter<"Form"> | boolean
 }
 
 export type FormCreateInput = {
@@ -288,9 +288,9 @@ export type FormCreateInput = {
   description?: string | null
   slug: string
   status?: $Enums.FormStatus
-  isTemplate?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  isTemplate?: boolean
   user: Prisma.UserCreateNestedOneWithoutFormsInput
   fields?: Prisma.FormFieldCreateNestedManyWithoutFormInput
   responses?: Prisma.ResponseCreateNestedManyWithoutFormInput
@@ -302,10 +302,10 @@ export type FormUncheckedCreateInput = {
   description?: string | null
   slug: string
   status?: $Enums.FormStatus
-  isTemplate?: boolean
   userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  isTemplate?: boolean
   fields?: Prisma.FormFieldUncheckedCreateNestedManyWithoutFormInput
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutFormInput
 }
@@ -316,9 +316,9 @@ export type FormUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumFormStatusFieldUpdateOperationsInput | $Enums.FormStatus
-  isTemplate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTemplate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   user?: Prisma.UserUpdateOneRequiredWithoutFormsNestedInput
   fields?: Prisma.FormFieldUpdateManyWithoutFormNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutFormNestedInput
@@ -330,10 +330,10 @@ export type FormUncheckedUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumFormStatusFieldUpdateOperationsInput | $Enums.FormStatus
-  isTemplate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTemplate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   fields?: Prisma.FormFieldUncheckedUpdateManyWithoutFormNestedInput
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutFormNestedInput
 }
@@ -344,10 +344,10 @@ export type FormCreateManyInput = {
   description?: string | null
   slug: string
   status?: $Enums.FormStatus
-  isTemplate?: boolean
   userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  isTemplate?: boolean
 }
 
 export type FormUpdateManyMutationInput = {
@@ -356,9 +356,9 @@ export type FormUpdateManyMutationInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumFormStatusFieldUpdateOperationsInput | $Enums.FormStatus
-  isTemplate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTemplate?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type FormUncheckedUpdateManyInput = {
@@ -367,10 +367,10 @@ export type FormUncheckedUpdateManyInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumFormStatusFieldUpdateOperationsInput | $Enums.FormStatus
-  isTemplate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTemplate?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type FormListRelationFilter = {
@@ -389,10 +389,10 @@ export type FormCountOrderByAggregateInput = {
   description?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  isTemplate?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isTemplate?: Prisma.SortOrder
 }
 
 export type FormMaxOrderByAggregateInput = {
@@ -401,10 +401,10 @@ export type FormMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  isTemplate?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isTemplate?: Prisma.SortOrder
 }
 
 export type FormMinOrderByAggregateInput = {
@@ -413,10 +413,10 @@ export type FormMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  isTemplate?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isTemplate?: Prisma.SortOrder
 }
 
 export type FormScalarRelationFilter = {
@@ -512,9 +512,9 @@ export type FormCreateWithoutUserInput = {
   description?: string | null
   slug: string
   status?: $Enums.FormStatus
-  isTemplate?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  isTemplate?: boolean
   fields?: Prisma.FormFieldCreateNestedManyWithoutFormInput
   responses?: Prisma.ResponseCreateNestedManyWithoutFormInput
 }
@@ -525,9 +525,9 @@ export type FormUncheckedCreateWithoutUserInput = {
   description?: string | null
   slug: string
   status?: $Enums.FormStatus
-  isTemplate?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  isTemplate?: boolean
   fields?: Prisma.FormFieldUncheckedCreateNestedManyWithoutFormInput
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutFormInput
 }
@@ -567,10 +567,10 @@ export type FormScalarWhereInput = {
   description?: Prisma.StringNullableFilter<"Form"> | string | null
   slug?: Prisma.StringFilter<"Form"> | string
   status?: Prisma.EnumFormStatusFilter<"Form"> | $Enums.FormStatus
-  isTemplate?: Prisma.BoolFilter<"Form"> | boolean
   userId?: Prisma.StringFilter<"Form"> | string
   createdAt?: Prisma.DateTimeFilter<"Form"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Form"> | Date | string
+  isTemplate?: Prisma.BoolFilter<"Form"> | boolean
 }
 
 export type FormCreateWithoutFieldsInput = {
@@ -579,9 +579,9 @@ export type FormCreateWithoutFieldsInput = {
   description?: string | null
   slug: string
   status?: $Enums.FormStatus
-  isTemplate?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  isTemplate?: boolean
   user: Prisma.UserCreateNestedOneWithoutFormsInput
   responses?: Prisma.ResponseCreateNestedManyWithoutFormInput
 }
@@ -592,10 +592,10 @@ export type FormUncheckedCreateWithoutFieldsInput = {
   description?: string | null
   slug: string
   status?: $Enums.FormStatus
-  isTemplate?: boolean
   userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  isTemplate?: boolean
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutFormInput
 }
 
@@ -621,9 +621,9 @@ export type FormUpdateWithoutFieldsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumFormStatusFieldUpdateOperationsInput | $Enums.FormStatus
-  isTemplate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTemplate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   user?: Prisma.UserUpdateOneRequiredWithoutFormsNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutFormNestedInput
 }
@@ -634,10 +634,10 @@ export type FormUncheckedUpdateWithoutFieldsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumFormStatusFieldUpdateOperationsInput | $Enums.FormStatus
-  isTemplate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTemplate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutFormNestedInput
 }
 
@@ -647,9 +647,9 @@ export type FormCreateWithoutResponsesInput = {
   description?: string | null
   slug: string
   status?: $Enums.FormStatus
-  isTemplate?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  isTemplate?: boolean
   user: Prisma.UserCreateNestedOneWithoutFormsInput
   fields?: Prisma.FormFieldCreateNestedManyWithoutFormInput
 }
@@ -660,10 +660,10 @@ export type FormUncheckedCreateWithoutResponsesInput = {
   description?: string | null
   slug: string
   status?: $Enums.FormStatus
-  isTemplate?: boolean
   userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  isTemplate?: boolean
   fields?: Prisma.FormFieldUncheckedCreateNestedManyWithoutFormInput
 }
 
@@ -689,9 +689,9 @@ export type FormUpdateWithoutResponsesInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumFormStatusFieldUpdateOperationsInput | $Enums.FormStatus
-  isTemplate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTemplate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   user?: Prisma.UserUpdateOneRequiredWithoutFormsNestedInput
   fields?: Prisma.FormFieldUpdateManyWithoutFormNestedInput
 }
@@ -702,10 +702,10 @@ export type FormUncheckedUpdateWithoutResponsesInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumFormStatusFieldUpdateOperationsInput | $Enums.FormStatus
-  isTemplate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTemplate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   fields?: Prisma.FormFieldUncheckedUpdateManyWithoutFormNestedInput
 }
 
@@ -715,9 +715,9 @@ export type FormCreateManyUserInput = {
   description?: string | null
   slug: string
   status?: $Enums.FormStatus
-  isTemplate?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  isTemplate?: boolean
 }
 
 export type FormUpdateWithoutUserInput = {
@@ -726,9 +726,9 @@ export type FormUpdateWithoutUserInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumFormStatusFieldUpdateOperationsInput | $Enums.FormStatus
-  isTemplate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTemplate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   fields?: Prisma.FormFieldUpdateManyWithoutFormNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutFormNestedInput
 }
@@ -739,9 +739,9 @@ export type FormUncheckedUpdateWithoutUserInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumFormStatusFieldUpdateOperationsInput | $Enums.FormStatus
-  isTemplate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTemplate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   fields?: Prisma.FormFieldUncheckedUpdateManyWithoutFormNestedInput
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutFormNestedInput
 }
@@ -752,9 +752,9 @@ export type FormUncheckedUpdateManyWithoutUserInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumFormStatusFieldUpdateOperationsInput | $Enums.FormStatus
-  isTemplate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTemplate?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 
@@ -803,10 +803,10 @@ export type FormSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   description?: boolean
   slug?: boolean
   status?: boolean
-  isTemplate?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  isTemplate?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   fields?: boolean | Prisma.Form$fieldsArgs<ExtArgs>
   responses?: boolean | Prisma.Form$responsesArgs<ExtArgs>
@@ -819,10 +819,10 @@ export type FormSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   description?: boolean
   slug?: boolean
   status?: boolean
-  isTemplate?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  isTemplate?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["form"]>
 
@@ -832,10 +832,10 @@ export type FormSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   description?: boolean
   slug?: boolean
   status?: boolean
-  isTemplate?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  isTemplate?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["form"]>
 
@@ -845,13 +845,13 @@ export type FormSelectScalar = {
   description?: boolean
   slug?: boolean
   status?: boolean
-  isTemplate?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  isTemplate?: boolean
 }
 
-export type FormOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "slug" | "status" | "isTemplate" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["form"]>
+export type FormOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "slug" | "status" | "userId" | "createdAt" | "updatedAt" | "isTemplate", ExtArgs["result"]["form"]>
 export type FormInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   fields?: boolean | Prisma.Form$fieldsArgs<ExtArgs>
@@ -878,10 +878,10 @@ export type $FormPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     description: string | null
     slug: string
     status: $Enums.FormStatus
-    isTemplate: boolean
     userId: string
     createdAt: Date
     updatedAt: Date
+    isTemplate: boolean
   }, ExtArgs["result"]["form"]>
   composites: {}
 }
@@ -1313,10 +1313,10 @@ export interface FormFieldRefs {
   readonly description: Prisma.FieldRef<"Form", 'String'>
   readonly slug: Prisma.FieldRef<"Form", 'String'>
   readonly status: Prisma.FieldRef<"Form", 'FormStatus'>
-  readonly isTemplate: Prisma.FieldRef<"Form", 'Boolean'>
   readonly userId: Prisma.FieldRef<"Form", 'String'>
   readonly createdAt: Prisma.FieldRef<"Form", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Form", 'DateTime'>
+  readonly isTemplate: Prisma.FieldRef<"Form", 'Boolean'>
 }
     
 

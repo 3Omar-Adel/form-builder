@@ -240,8 +240,8 @@ export type FormFieldWhereInput = {
   formId?: Prisma.StringFilter<"FormField"> | string
   createdAt?: Prisma.DateTimeFilter<"FormField"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FormField"> | Date | string
-  form?: Prisma.XOR<Prisma.FormScalarRelationFilter, Prisma.FormWhereInput>
   options?: Prisma.FieldOptionListRelationFilter
+  form?: Prisma.XOR<Prisma.FormScalarRelationFilter, Prisma.FormWhereInput>
   answers?: Prisma.ResponseAnswerListRelationFilter
 }
 
@@ -254,8 +254,8 @@ export type FormFieldOrderByWithRelationInput = {
   formId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  form?: Prisma.FormOrderByWithRelationInput
   options?: Prisma.FieldOptionOrderByRelationAggregateInput
+  form?: Prisma.FormOrderByWithRelationInput
   answers?: Prisma.ResponseAnswerOrderByRelationAggregateInput
 }
 
@@ -272,8 +272,8 @@ export type FormFieldWhereUniqueInput = Prisma.AtLeast<{
   formId?: Prisma.StringFilter<"FormField"> | string
   createdAt?: Prisma.DateTimeFilter<"FormField"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FormField"> | Date | string
-  form?: Prisma.XOR<Prisma.FormScalarRelationFilter, Prisma.FormWhereInput>
   options?: Prisma.FieldOptionListRelationFilter
+  form?: Prisma.XOR<Prisma.FormScalarRelationFilter, Prisma.FormWhereInput>
   answers?: Prisma.ResponseAnswerListRelationFilter
 }, "id" | "formId_position">
 
@@ -315,8 +315,8 @@ export type FormFieldCreateInput = {
   position: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  form: Prisma.FormCreateNestedOneWithoutFieldsInput
   options?: Prisma.FieldOptionCreateNestedManyWithoutFieldInput
+  form: Prisma.FormCreateNestedOneWithoutFieldsInput
   answers?: Prisma.ResponseAnswerCreateNestedManyWithoutFieldInput
 }
 
@@ -341,8 +341,8 @@ export type FormFieldUpdateInput = {
   position?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  form?: Prisma.FormUpdateOneRequiredWithoutFieldsNestedInput
   options?: Prisma.FieldOptionUpdateManyWithoutFieldNestedInput
+  form?: Prisma.FormUpdateOneRequiredWithoutFieldsNestedInput
   answers?: Prisma.ResponseAnswerUpdateManyWithoutFieldNestedInput
 }
 
@@ -670,8 +670,8 @@ export type FormFieldCreateWithoutAnswersInput = {
   position: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  form: Prisma.FormCreateNestedOneWithoutFieldsInput
   options?: Prisma.FieldOptionCreateNestedManyWithoutFieldInput
+  form: Prisma.FormCreateNestedOneWithoutFieldsInput
 }
 
 export type FormFieldUncheckedCreateWithoutAnswersInput = {
@@ -710,8 +710,8 @@ export type FormFieldUpdateWithoutAnswersInput = {
   position?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  form?: Prisma.FormUpdateOneRequiredWithoutFieldsNestedInput
   options?: Prisma.FieldOptionUpdateManyWithoutFieldNestedInput
+  form?: Prisma.FormUpdateOneRequiredWithoutFieldsNestedInput
 }
 
 export type FormFieldUncheckedUpdateWithoutAnswersInput = {
@@ -819,8 +819,8 @@ export type FormFieldSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   formId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  form?: boolean | Prisma.FormDefaultArgs<ExtArgs>
   options?: boolean | Prisma.FormField$optionsArgs<ExtArgs>
+  form?: boolean | Prisma.FormDefaultArgs<ExtArgs>
   answers?: boolean | Prisma.FormField$answersArgs<ExtArgs>
   _count?: boolean | Prisma.FormFieldCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["formField"]>
@@ -862,8 +862,8 @@ export type FormFieldSelectScalar = {
 
 export type FormFieldOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "label" | "type" | "required" | "position" | "formId" | "createdAt" | "updatedAt", ExtArgs["result"]["formField"]>
 export type FormFieldInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  form?: boolean | Prisma.FormDefaultArgs<ExtArgs>
   options?: boolean | Prisma.FormField$optionsArgs<ExtArgs>
+  form?: boolean | Prisma.FormDefaultArgs<ExtArgs>
   answers?: boolean | Prisma.FormField$answersArgs<ExtArgs>
   _count?: boolean | Prisma.FormFieldCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -877,8 +877,8 @@ export type FormFieldIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
 export type $FormFieldPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "FormField"
   objects: {
-    form: Prisma.$FormPayload<ExtArgs>
     options: Prisma.$FieldOptionPayload<ExtArgs>[]
+    form: Prisma.$FormPayload<ExtArgs>
     answers: Prisma.$ResponseAnswerPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1284,8 +1284,8 @@ readonly fields: FormFieldFieldRefs;
  */
 export interface Prisma__FormFieldClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  form<T extends Prisma.FormDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FormDefaultArgs<ExtArgs>>): Prisma.Prisma__FormClient<runtime.Types.Result.GetResult<Prisma.$FormPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   options<T extends Prisma.FormField$optionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FormField$optionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FieldOptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  form<T extends Prisma.FormDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FormDefaultArgs<ExtArgs>>): Prisma.Prisma__FormClient<runtime.Types.Result.GetResult<Prisma.$FormPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   answers<T extends Prisma.FormField$answersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FormField$answersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ResponseAnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
