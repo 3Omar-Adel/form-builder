@@ -1,10 +1,18 @@
 import { prisma } from "../config/prisma";
 
 export const checkDatabase = async () => {
-  await prisma.$queryRaw`SELECT 1`;
+    const databaseUrl = process.env.DATABASE_URL;
 
-  return {
-    status: "ok",
-    database: "connected",
-  };
+    console.log("DATABASE_URL exists:", Boolean(databaseUrl));
+    console.log(
+        "DATABASE_URL starts with postgres:",
+        databaseUrl?.startsWith("postgres")
+    );
+
+    await prisma.$queryRaw`SELECT 1`;
+
+    return {
+        status: "ok",
+        database: "connected",
+    };
 };

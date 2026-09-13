@@ -23,6 +23,12 @@ app.get("/health", (req, res) => {
     message: "Form Builder API is running",
   });
 });
+app.get("/", (req, res) => {
+    res.json({
+        success: true,
+        message: "Form Builder API is running",
+    });
+});
 
 app.use("/api/health", healthRoutes);
 app.use("/api/auth", authRoutes);
