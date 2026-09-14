@@ -11,11 +11,19 @@ export interface LoginData {
     password: string;
 }
 
+export interface UpdateProfileData {
+    name: string;
+    email: string;
+    currentPassword?: string;
+    newPassword?: string;
+}
+
 export interface AuthUser {
     id: string;
     name: string;
     email: string;
     createdAt: string;
+    updatedAt?: string;
 }
 
 export interface AuthResponse {
@@ -34,6 +42,14 @@ export interface MeResponse {
     };
 }
 
+export interface UpdateProfileResponse {
+    success: boolean;
+    message: string;
+    data: {
+        user: AuthUser;
+    };
+}
+
 export const authApi = {
 
     register: async (
@@ -43,6 +59,7 @@ export const authApi = {
             "/auth/register",
             data
         );
+
         return response.data;
     },
 
@@ -53,6 +70,7 @@ export const authApi = {
             "/auth/login",
             data
         );
+
         return response.data;
     },
 
@@ -60,6 +78,19 @@ export const authApi = {
         const response = await api.get<MeResponse>(
             "/auth/me"
         );
+
+        return response.data;
+    },
+
+    updateProfile: async (
+        data: UpdateProfileData
+    ): Promise<UpdateProfileResponse> => {
+        const response =
+            await api.put<UpdateProfileResponse>(
+                "/auth/me",
+                data
+            );
+
         return response.data;
     },
 };

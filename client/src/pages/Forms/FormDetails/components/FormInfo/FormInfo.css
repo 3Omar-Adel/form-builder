@@ -51,7 +51,21 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+.form-info-item-link {
+    text-decoration: none;
+    cursor: pointer;
 
+    transition:
+        background-color 0.2s ease;
+}
+
+.form-info-item-link:hover {
+    background-color: var(--color-surface-hover);
+}
+
+.form-info-item-link strong {
+    color: var(--color-primary);
+}
 @media (max-width: 800px) {
     .form-info {
         grid-template-columns: repeat(2, minmax(0, 1fr));

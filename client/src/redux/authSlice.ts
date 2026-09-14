@@ -61,7 +61,7 @@ export const loginUser = createAsyncThunk(
             );
 
             return response.data;
-        } catch  {
+        } catch {
             return rejectWithValue(
                 "Invalid email or password. Please try again."
             );
@@ -94,13 +94,46 @@ export const registerUser = createAsyncThunk(
             );
 
             return response.data;
-        } catch  {
+        } catch {
             return rejectWithValue(
                 "Registration failed. Please check your information and try again."
             );
         }
     }
 );
+
+
+export const updateProfileUser =
+    createAsyncThunk(
+        "auth/updateProfileUser",
+
+        async (
+            data: {
+                name: string;
+                email: string;
+                currentPassword?: string;
+                newPassword?: string;
+            },
+            { rejectWithValue }
+        ) => {
+            try {
+                const response =
+                    await authApi.updateProfile(
+                        data
+                    );
+
+                authStorage.setUser(
+                    response.data.user
+                );
+
+                return response.data.user;
+            } catch {
+                return rejectWithValue(
+                    "Profile update failed. Please check your information and try again."
+                );
+            }
+        }
+    );
 
 
 const authSlice = createSlice({
@@ -189,6 +222,37 @@ const authSlice = createSlice({
                 state.error =
                     action.payload as string;
                 state.isAuthenticated = false;
+            }
+        );
+
+
+        // =========================
+        // UPDATE PROFILE
+        // =========================
+
+        builder.addCase(
+            updateProfileUser.pending,
+            (state) => {
+                state.isLoading = true;
+                state.error = null;
+            }
+        );
+
+        builder.addCase(
+            updateProfileUser.fulfilled,
+            (state, action) => {
+                state.isLoading = false;
+                state.user = action.payload;
+                state.error = null;
+            }
+        );
+
+        builder.addCase(
+            updateProfileUser.rejected,
+            (state, action) => {
+                state.isLoading = false;
+                state.error =
+                    action.payload as string;
             }
         );
 

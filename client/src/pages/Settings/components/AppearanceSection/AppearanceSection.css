@@ -1,0 +1,127 @@
+.appearance-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 24px;
+}
+
+.appearance-info {
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    min-width: 0;
+}
+
+.appearance-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 40px;
+    height: 40px;
+
+    flex-shrink: 0;
+
+    border-radius: 10px;
+
+    background-color: var(--color-background);
+
+    color: var(--color-text-muted);
+}
+
+.appearance-icon svg {
+    width: 19px;
+    height: 19px;
+}
+
+.appearance-info h2 {
+    margin: 0 0 5px;
+
+    color: var(--color-text);
+
+    font-size: 15px;
+    font-weight: 650;
+    line-height: 1.4;
+}
+
+.appearance-info p {
+    margin: 0;
+
+    color: var(--color-text-muted);
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.theme-toggle-setting {
+    display: flex;
+    align-items: center;
+
+    gap: 3px;
+
+    flex-shrink: 0;
+
+    padding: 3px;
+
+    border: 1px solid var(--color-border);
+    border-radius: 9px;
+
+    background-color: var(--color-background);
+
+    cursor: pointer;
+}
+
+.theme-option {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 5px;
+
+    padding: 7px 10px;
+
+    border-radius: 7px;
+
+    color: var(--color-text-muted);
+
+    font-size: 12px;
+    font-weight: 550;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.theme-option svg {
+    width: 15px;
+    height: 15px;
+}
+
+.theme-option.active {
+    background-color: var(--color-surface);
+
+    color: var(--color-text);
+
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 600px) {
+    .appearance-section {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .theme-toggle {
+        width: 100%;
+    }
+
+    .theme-option {
+        flex: 1;
+
+        justify-content: center;
+    }
+}

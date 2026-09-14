@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import type { Form } from "../../../../../api/form.api";
 
 import "./FormInfo.css";
@@ -33,13 +35,16 @@ const FormInfo = ({ form }: FormInfoProps) => {
                 </strong>
             </div>
 
-            <div className="form-info-item">
+            <Link
+                to={`/forms/${form.id}/responses`}
+                className="form-info-item form-info-item-link"
+            >
                 <span>Responses</span>
 
                 <strong>
                     {form._count?.responses ?? 0}
                 </strong>
-            </div>
+            </Link>
         </section>
     );
 };

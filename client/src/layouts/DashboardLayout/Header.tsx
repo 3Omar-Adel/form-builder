@@ -6,14 +6,15 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 
 import { useTheme } from "../../app/providers/theme/useTheme";
-import { authStorage } from "../../auth/auth.storage";
+import { useSelector } from "react-redux";
 
+import type {
+    RootState,
+    AppDispatch,
+} from "../../redux/store";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import type {
-    AppDispatch,
-} from "../../redux/store";
 
 import {
     logout,
@@ -37,8 +38,6 @@ const Header = ({
     const navigate =
         useNavigate();
 
-    const user =
-        authStorage.getUser();
 
     const handleLogout = () => {
         dispatch(logout());
@@ -47,6 +46,10 @@ const Header = ({
             replace: true,
         });
     };
+
+    const user = useSelector(
+        (state: RootState) => state.auth.user
+    );
 
     const displayName =
         user?.name || "User";

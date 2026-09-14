@@ -11,6 +11,8 @@ import CreateForm from "../../pages/CreateForm/CreateForm";
 import FormDetails from "../../pages/Forms/FormDetails/FormDetails";
 import PublicForm from "../../pages/PublicForm/PublicForm";
 import Templates from "../../pages/Templates/Templates";
+import Responses from "../../pages/Responses/Responses";
+import Settings from "../../pages/Settings/Settings";
 
 export const router = createBrowserRouter([
     { path: "/", element: <Home />, },
@@ -36,17 +38,25 @@ export const router = createBrowserRouter([
                         element: <Forms />,
                     },
                     {
-                    path: "/templates",
-                    element: <Templates />,
+                        path: "/templates",
+                        element: <Templates />,
+                    },
+                    {
+                        path: "/settings",
+                        element: <Settings />,
                     },
                     {
                         path: "/forms/new",
                         element: <CreateForm />,
                     },
                     {
-    path: "/forms/:id/edit",
-    element: <CreateForm />,
-},
+                        path: "/forms/:id/edit",
+                        element: <CreateForm />,
+                    },
+                    {
+                        path: "/forms/:id/responses",
+                        element: <Responses />,
+                    },
                     {
                         path: "/forms/:id",
                         element: <FormDetails />,
@@ -56,9 +66,9 @@ export const router = createBrowserRouter([
         ],
     },
     {
-    path: "/forms/public/:slug",
-    element: <PublicForm />,
-},
+        path: "/forms/public/:slug",
+        element: <PublicForm />,
+    },
     {
         path: "*",
         element: <Navigate to="/" replace />,
