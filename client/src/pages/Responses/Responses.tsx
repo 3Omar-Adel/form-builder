@@ -4,20 +4,22 @@ import { useNavigate, useParams } from "react-router-dom";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 
-import { responseApi } from "../../api/response.api";
+import { responseApi, type FormResponse } from "../../api/response.api";
 import { formApi, type Form } from "../../api/form.api";
 
-import type { FormResponse } from "../../api/response.api";
+import EmptyState from "../../components/EmptyState/EmptyState";
+import ResponsesSkeleton from "./Skeleton/ResponsesSkeleton";
 
 import "./Responses.css";
 
 const Responses = () => {
-    const { id } = useParams();
+    const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
 
     const [form, setForm] = useState<Form | null>(null);
     const [responses, setResponses] = useState<FormResponse[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [deletingResponseId, setDeletingResponseId] = useState<string | null>(null);
     const [error, setError] = useState("");
 
     useEffect(() => {
@@ -30,25 +32,16 @@ const Responses = () => {
                 setIsLoading(true);
                 setError("");
 
-                const [formResponse, responsesResponse] =
-                    await Promise.all([
-                        formApi.getById(id),
-                        responseApi.getByFormId(id),
-                    ]);
+                const [formResponse, responsesResponse] = await Promise.all([
+                    formApi.getById(id),
+                    responseApi.getByFormId(id),
+                ]);
 
                 setForm(formResponse.data.form);
-                setResponses(
-                    responsesResponse.data.responses,
-                );
+                setResponses(responsesResponse.data.responses);
             } catch (error) {
-                console.error(
-                    "Failed to load responses:",
-                    error,
-                );
-
-                setError(
-                    "Failed to load responses.",
-                );
+                console.error("Failed to load responses:", error);
+                setError("Failed to load responses. Please try again.");
             } finally {
                 setIsLoading(false);
             }
@@ -57,10 +50,22 @@ const Responses = () => {
         loadResponses();
     }, [id]);
 
-    const handleDelete = async (
-        responseId: string,
-    ) => {
-        if (!id) {
+    if (!id) {
+        return (
+            <div className="responses-page">
+                <div className="responses-error">
+                    Form ID is missing.
+                </div>
+            </div>
+        );
+    }
+
+    if (isLoading) {
+        return <ResponsesSkeleton />;
+    }
+
+    const handleDelete = async (responseId: string) => {
+        if (!id || deletingResponseId) {
             return;
         }
 
@@ -73,33 +78,28 @@ const Responses = () => {
         }
 
         try {
-            await responseApi.delete(
-                id,
-                responseId,
-            );
+            setDeletingResponseId(responseId);
+
+            await responseApi.delete(id, responseId);
 
             setResponses((currentResponses) =>
                 currentResponses.filter(
-                    (response) =>
-                        response.id !== responseId,
+                    (response) => response.id !== responseId,
                 ),
             );
         } catch (error) {
-            console.error(
-                "Failed to delete response:",
-                error,
-            );
+            console.error("Failed to delete response:", error);
+            setError("Failed to delete response. Please try again.");
+        } finally {
+            setDeletingResponseId(null);
         }
     };
 
     const formatDate = (date: string) => {
-        return new Date(date).toLocaleString(
-            "en-US",
-            {
-                dateStyle: "medium",
-                timeStyle: "short",
-            },
-        );
+        return new Date(date).toLocaleString("en-US", {
+            dateStyle: "medium",
+            timeStyle: "short",
+        });
     };
 
     const getAnswerValue = (value: string) => {
@@ -109,18 +109,29 @@ const Responses = () => {
             if (Array.isArray(parsed)) {
                 return parsed.join(", ");
             }
+
+            if (
+                parsed !== null &&
+                typeof parsed === "object"
+            ) {
+                return JSON.stringify(parsed);
+            }
+
+            return String(parsed);
         } catch {
             return value;
         }
-
-        return value;
     };
 
     if (isLoading) {
+        return <ResponsesSkeleton />;
+    }
+
+    if (error && !form) {
         return (
             <div className="responses-page">
-                <div className="responses-loading">
-                    Loading responses...
+                <div className="responses-error">
+                    {error}
                 </div>
             </div>
         );
@@ -132,19 +143,14 @@ const Responses = () => {
                 <button
                     type="button"
                     className="responses-back"
-                    onClick={() =>
-                        navigate(`/forms/${id}`)
-                    }
+                    onClick={() => navigate(`/forms/${id}`)}
                 >
                     <ArrowBackOutlinedIcon />
-
                     <span>Back to form</span>
                 </button>
 
                 <div className="responses-header-content">
-                    <h1>
-                        {form?.title ?? "Responses"}
-                    </h1>
+                    <h1>{form?.title ?? "Responses"}</h1>
 
                     <p>
                         {responses.length}{" "}
@@ -161,68 +167,68 @@ const Responses = () => {
                 </div>
             )}
 
-            {!error && responses.length === 0 && (
-                <div className="responses-empty">
-                    <h2>No responses yet</h2>
+            {responses.length === 0 ? (
+                <EmptyState
+                    title="No responses yet"
+                    description="Responses submitted to this form will appear here."
+                    buttonText="Back to form"
+                    onButtonClick={() => navigate(`/forms/${id}`)}
+                />
+            ) : (
+                <div className="responses-list">
+                    {responses.map((response, index) => {
+                        const isDeleting =
+                            deletingResponseId === response.id;
 
-                    <p>
-                        Responses submitted to this
-                        form will appear here.
-                    </p>
-                </div>
-            )}
+                        return (
+                            <article
+                                key={response.id}
+                                className={`response-card ${isDeleting
+                                        ? "response-card-deleting"
+                                        : ""
+                                    }`}
+                            >
+                                <div className="response-card-header">
+                                    <div>
+                                        <h2>
+                                            Response{" "}
+                                            {responses.length - index}
+                                        </h2>
 
-            <div className="responses-list">
-                {responses.map(
-                    (response, index) => (
-                        <article
-                            key={response.id}
-                            className="response-card"
-                        >
-                            <div className="response-card-header">
-                                <div>
-                                    <h2>
-                                        Response{" "}
-                                        {responses.length -
-                                            index}
-                                    </h2>
+                                        <span>
+                                            {formatDate(
+                                                response.createdAt,
+                                            )}
+                                        </span>
+                                    </div>
 
-                                    <span>
-                                        {formatDate(
-                                            response.createdAt,
+                                    <button
+                                        type="button"
+                                        className="response-delete"
+                                        onClick={() =>
+                                            handleDelete(response.id)
+                                        }
+                                        disabled={
+                                            deletingResponseId !== null
+                                        }
+                                        aria-label="Delete response"
+                                    >
+                                        {isDeleting ? (
+                                            <span className="response-delete-spinner" />
+                                        ) : (
+                                            <DeleteOutlineOutlinedIcon />
                                         )}
-                                    </span>
+                                    </button>
                                 </div>
 
-                                <button
-                                    type="button"
-                                    className="response-delete"
-                                    onClick={() =>
-                                        handleDelete(
-                                            response.id,
-                                        )
-                                    }
-                                    aria-label="Delete response"
-                                >
-                                    <DeleteOutlineOutlinedIcon />
-                                </button>
-                            </div>
-
-                            <div className="response-answers">
-                                {response.answers.map(
-                                    (answer) => (
+                                <div className="response-answers">
+                                    {response.answers.map((answer) => (
                                         <div
-                                            key={
-                                                answer.id
-                                            }
+                                            key={answer.id}
                                             className="response-answer"
                                         >
                                             <span className="response-answer-label">
-                                                {
-                                                    answer
-                                                        .field
-                                                        .label
-                                                }
+                                                {answer.field.label}
                                             </span>
 
                                             <p>
@@ -231,13 +237,13 @@ const Responses = () => {
                                                 ) || "—"}
                                             </p>
                                         </div>
-                                    ),
-                                )}
-                            </div>
-                        </article>
-                    ),
-                )}
-            </div>
+                                    ))}
+                                </div>
+                            </article>
+                        );
+                    })}
+                </div>
+            )}
         </div>
     );
 };

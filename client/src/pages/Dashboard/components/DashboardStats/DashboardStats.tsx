@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import DashboardStatsSkeleton from "./DashboardStatsSkeleton";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
 import ForumOutlinedIcon from "@mui/icons-material/ForumOutlined";
@@ -68,12 +68,8 @@ const DashboardStats = () => {
     ];
 
     if (isLoading) {
-        return (
-            <section className="stats">
-                <p>Loading...</p>
-            </section>
-        );
-    }
+    return <DashboardStatsSkeleton />;
+}
 
     if (error) {
         return (

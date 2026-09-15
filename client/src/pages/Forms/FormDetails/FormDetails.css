@@ -7,7 +7,6 @@
 
 .form-details-container {
     width: min(100%, 1050px);
-
     margin: 0 auto;
 }
 
@@ -17,33 +16,20 @@
 
 .form-details-back {
     display: inline-flex;
-
     align-items: center;
-
     gap: 7px;
-
     padding: 8px 11px;
-
     border: 1px solid var(--color-border);
-
     border-radius: 8px;
-
     background: var(--color-surface);
-
     color: var(--color-text-muted);
-
     font-size: 0.8rem;
-
     cursor: pointer;
-
-    transition:
-        background-color 0.2s ease,
-        color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .form-details-back:hover {
     background: var(--color-surface-hover);
-
     color: var(--color-text);
 }
 
@@ -54,9 +40,7 @@
 
 .form-details-error {
     padding: 40px;
-
     text-align: center;
-
     color: var(--color-text-muted);
 }
 

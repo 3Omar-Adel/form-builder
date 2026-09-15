@@ -1,3 +1,5 @@
+import "./Navbar.css";
+
 import {
     Add,
     Dashboard,
@@ -6,42 +8,22 @@ import {
     Menu,
     Close,
 } from "@mui/icons-material";
-import {
-    useState,
-} from "react";
 
-import {
-    Link,
-} from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-import {
-    useSelector,
-} from "react-redux";
+import type { RootState } from "../../../../redux/store";
 
-import type {
-    RootState,
-} from "../../../../redux/store";
-
-import {
-    useTheme,
-} from "../../../../app/providers/theme/useTheme";
-
-import "./Navbar.css";
+import { useTheme } from "../../../../app/providers/theme/useTheme";
 
 const Navbar = () => {
-    const {
-        theme,
-        toggleTheme,
-    } = useTheme();
+    const { theme, toggleTheme } = useTheme();
 
-    const [
-        menuOpen,
-        setMenuOpen,
-    ] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
 
     const isAuthenticated = useSelector(
-        (state: RootState) =>
-            state.auth.isAuthenticated
+        (state: RootState) => state.auth.isAuthenticated
     );
 
     const closeMenu = () => {
@@ -49,65 +31,43 @@ const Navbar = () => {
     };
 
     return (
-        <header className="navbar">
-            <div className="navbar-container">
+        <header className="site-navbar">
+            <div className="site-navbar-container">
 
                 <Link
                     to="/"
-                    className="navbar-logo"
+                    className="site-navbar-logo"
                     onClick={closeMenu}
                 >
-                    <div className="sidebar-brand">
-
-                        <div className="sidebar-logo">
+                    <div className="site-navbar-brand">
+                        <div className="site-navbar-logo-mark">
                             F
                         </div>
 
-                        <span>
+                        <span className="site-navbar-brand-name">
                             Form Builder
                         </span>
-
                     </div>
                 </Link>
 
-
-                {/* =========================
-                    DESKTOP NAVIGATION
-                ========================= */}
-
                 <nav
-                    className={`navbar-links ${menuOpen
-                            ? "navbar-links-open"
-                            : ""
-                        }`}
+                    className={`site-navbar-links ${
+                        menuOpen ? "site-navbar-links-open" : ""
+                    }`}
                 >
-
-                    <a
-                        href="#features"
-                        onClick={closeMenu}
-                    >
+                    <a href="#features" onClick={closeMenu}>
                         Features
                     </a>
 
-                    <Link
-                        to="/templates"
-                        onClick={closeMenu}
-                    >
+                    <Link to="/templates" onClick={closeMenu}>
                         Templates
                     </Link>
 
-                    <a
-                        href="#about"
-                        onClick={closeMenu}
-                    >
+                    <a href="#about" onClick={closeMenu}>
                         About
                     </a>
 
-
-                    {/* Mobile Auth */}
-
-                    <div className="mobile-auth">
-
+                    <div className="site-navbar-mobile-auth">
                         {isAuthenticated ? (
                             <>
                                 <Link
@@ -120,7 +80,7 @@ const Navbar = () => {
 
                                 <Link
                                     to="/forms/new"
-                                    className="navbar-mobile-button"
+                                    className="site-navbar-mobile-primary"
                                     onClick={closeMenu}
                                 >
                                     <Add />
@@ -138,40 +98,28 @@ const Navbar = () => {
 
                                 <Link
                                     to="/register"
-                                    className="navbar-mobile-button"
+                                    className="site-navbar-mobile-primary"
                                     onClick={closeMenu}
                                 >
                                     Get started
                                 </Link>
                             </>
                         )}
-
                     </div>
-
                 </nav>
 
-
-                {/* =========================
-                    ACTIONS
-                ========================= */}
-
-                <div className="navbar-actions">
-
-
-                    {/* Theme */}
+                <div className="site-navbar-actions">
 
                     <button
                         type="button"
-                        className="theme-toggle"
+                        className="site-navbar-theme-button"
                         onClick={toggleTheme}
-                        aria-label={`Switch to ${theme === "light"
-                                ? "dark"
-                                : "light"
-                            } mode`}
-                        title={`Switch to ${theme === "light"
-                                ? "dark"
-                                : "light"
-                            } mode`}
+                        aria-label={`Switch to ${
+                            theme === "light" ? "dark" : "light"
+                        } mode`}
+                        title={`Switch to ${
+                            theme === "light" ? "dark" : "light"
+                        } mode`}
                     >
                         {theme === "light" ? (
                             <DarkMode />
@@ -180,14 +128,11 @@ const Navbar = () => {
                         )}
                     </button>
 
-
-                    {/* Desktop Auth */}
-
                     {isAuthenticated ? (
                         <>
                             <Link
                                 to="/dashboard"
-                                className="dashboard-button"
+                                className="site-navbar-dashboard-button"
                             >
                                 <Dashboard />
 
@@ -198,7 +143,7 @@ const Navbar = () => {
 
                             <Link
                                 to="/forms/new"
-                                className="create-form-button"
+                                className="site-navbar-create-button"
                             >
                                 <Add />
 
@@ -211,36 +156,27 @@ const Navbar = () => {
                         <>
                             <Link
                                 to="/login"
-                                className="login-button"
+                                className="site-navbar-login-button"
                             >
                                 Log in
                             </Link>
 
                             <Link
                                 to="/register"
-                                className="get-started-button"
+                                className="site-navbar-start-button"
                             >
                                 Get started
                             </Link>
                         </>
                     )}
 
-
-                    {/* Mobile Menu */}
-
                     <button
                         type="button"
-                        className="menu-button"
-                        onClick={() =>
-                            setMenuOpen(!menuOpen)
-                        }
+                        className="site-navbar-menu-button"
+                        onClick={() => setMenuOpen(!menuOpen)}
                         aria-label="Toggle menu"
                     >
-                        {menuOpen ? (
-                            <Close />
-                        ) : (
-                            <Menu />
-                        )}
+                        {menuOpen ? <Close /> : <Menu />}
                     </button>
 
                 </div>

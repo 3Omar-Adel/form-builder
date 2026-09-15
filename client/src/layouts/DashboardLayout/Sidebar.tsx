@@ -1,4 +1,5 @@
 import "./Sidebar.css";
+
 import {
     NavLink,
     useNavigate,
@@ -15,33 +16,21 @@ import {
     CloseOutlined,
 } from "@mui/icons-material";
 
-import {
-    useDispatch,
-} from "react-redux";
+import { useDispatch } from "react-redux";
 
-import type {
-    AppDispatch,
-} from "../../redux/store";
+import type { AppDispatch } from "../../redux/store";
 
-import {
-    logout,
-} from "../../redux/authSlice";
+import { logout } from "../../redux/authSlice";
 
 interface SidebarProps {
     isOpen: boolean;
     onClose: () => void;
 }
 
-const Sidebar = ({
-    isOpen,
-    onClose,
-}: SidebarProps) => {
+const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
+    const navigate = useNavigate();
 
-    const navigate =
-        useNavigate();
-
-    const dispatch =
-        useDispatch<AppDispatch>();
+    const dispatch = useDispatch<AppDispatch>();
 
     const handleLogout = () => {
         dispatch(logout());
@@ -54,49 +43,45 @@ const Sidebar = ({
     return (
         <>
             <div
-                className={`sidebar-overlay ${
-                    isOpen ? "show" : ""
+                className={`dashboard-sidebar-overlay ${
+                    isOpen ? "dashboard-sidebar-overlay-visible" : ""
                 }`}
                 onClick={onClose}
             />
 
             <aside
-                className={`sidebar ${
-                    isOpen ? "open" : ""
+                className={`dashboard-sidebar ${
+                    isOpen ? "dashboard-sidebar-open" : ""
                 }`}
             >
-
-                <div className="sidebar-brand">
-
-                    <div className="sidebar-logo">
+                <div className="dashboard-sidebar-brand">
+                    <div className="dashboard-sidebar-logo">
                         F
                     </div>
 
-                    <div className="sidebar-brand-text">
-                        <span className="sidebar-brand-name">
+                    <div className="dashboard-sidebar-brand-text">
+                        <span className="dashboard-sidebar-brand-name">
                             Form Builder
                         </span>
                     </div>
 
                     <button
                         type="button"
-                        className="sidebar-close-button"
+                        className="dashboard-sidebar-close"
                         onClick={onClose}
                         aria-label="Close menu"
                     >
                         <CloseOutlined />
                     </button>
-
                 </div>
 
-                <nav className="sidebar-nav">
-
+                <nav className="dashboard-sidebar-nav">
                     <NavLink
                         to="/"
-                        className="sidebar-link"
+                        className="dashboard-sidebar-link"
                         onClick={onClose}
                     >
-                        <HomeOutlined className="sidebar-icon" />
+                        <HomeOutlined className="dashboard-sidebar-icon" />
 
                         <span>
                             Home
@@ -105,10 +90,10 @@ const Sidebar = ({
 
                     <NavLink
                         to="/dashboard"
-                        className="sidebar-link"
+                        className="dashboard-sidebar-link"
                         onClick={onClose}
                     >
-                        <DashboardOutlined className="sidebar-icon" />
+                        <DashboardOutlined className="dashboard-sidebar-icon" />
 
                         <span>
                             Dashboard
@@ -117,10 +102,10 @@ const Sidebar = ({
 
                     <NavLink
                         to="/forms"
-                        className="sidebar-link"
+                        className="dashboard-sidebar-link"
                         onClick={onClose}
                     >
-                        <DescriptionOutlined className="sidebar-icon" />
+                        <DescriptionOutlined className="dashboard-sidebar-icon" />
 
                         <span>
                             Forms
@@ -129,10 +114,10 @@ const Sidebar = ({
 
                     <NavLink
                         to="/forms/new"
-                        className="sidebar-link"
+                        className="dashboard-sidebar-link"
                         onClick={onClose}
                     >
-                        <AddBoxOutlined className="sidebar-icon" />
+                        <AddBoxOutlined className="dashboard-sidebar-icon" />
 
                         <span>
                             Create Form
@@ -141,10 +126,10 @@ const Sidebar = ({
 
                     <NavLink
                         to="/templates"
-                        className="sidebar-link"
+                        className="dashboard-sidebar-link"
                         onClick={onClose}
                     >
-                        <FolderOpenOutlined className="sidebar-icon" />
+                        <FolderOpenOutlined className="dashboard-sidebar-icon" />
 
                         <span>
                             Templates
@@ -153,23 +138,21 @@ const Sidebar = ({
 
                     <NavLink
                         to="/settings"
-                        className="sidebar-link"
+                        className="dashboard-sidebar-link"
                         onClick={onClose}
                     >
-                        <SettingsOutlined className="sidebar-icon" />
+                        <SettingsOutlined className="dashboard-sidebar-icon" />
 
                         <span>
                             Settings
                         </span>
                     </NavLink>
-
                 </nav>
 
-                <div className="sidebar-footer">
-
+                <div className="dashboard-sidebar-footer">
                     <button
                         type="button"
-                        className="logout-button"
+                        className="dashboard-sidebar-logout"
                         onClick={handleLogout}
                     >
                         <LogoutOutlined />
@@ -178,9 +161,7 @@ const Sidebar = ({
                             Logout
                         </span>
                     </button>
-
                 </div>
-
             </aside>
         </>
     );

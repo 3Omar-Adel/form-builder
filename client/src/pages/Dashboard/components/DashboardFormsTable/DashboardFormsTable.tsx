@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-
+import DashboardFormsTableSkeleton from "./DashboardFormsTableSkeleton";
 import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
-
+import EmptyState from "../../../../components/EmptyState/EmptyState";
 import Pagination from "./Pagination/Pagination";
+import { useNavigate } from "react-router-dom";
 
 import {
     formApi,
@@ -14,12 +15,13 @@ import {
 import "./DashboardFormsTable.css";
 
 const DashboardFormsTable = () => {
+
+    const navigate = useNavigate();
+
     const [forms, setForms] = useState<Form[]>([]);
-    const [isLoading, setIsLoading] =
-        useState(true);
+    const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState("");
-    const [currentPage, setCurrentPage] =
-        useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
 
     const formsPerPage = 6;
 
@@ -72,19 +74,17 @@ const DashboardFormsTable = () => {
         }
 
         if (minutes < 60) {
-            return `${minutes} ${
-                minutes === 1
+            return `${minutes} ${minutes === 1
                     ? "minute"
                     : "minutes"
-            } ago`;
+                } ago`;
         }
 
         if (hours < 24) {
-            return `${hours} ${
-                hours === 1
+            return `${hours} ${hours === 1
                     ? "hour"
                     : "hours"
-            } ago`;
+                } ago`;
         }
 
         if (days === 1) {
@@ -110,25 +110,17 @@ const DashboardFormsTable = () => {
     );
 
     const startIndex =
-    (currentPage - 1) * formsPerPage;
+        (currentPage - 1) * formsPerPage;
 
-const currentForms = forms.slice(
-    startIndex,
-    startIndex + formsPerPage,
-);
+    const currentForms = forms.slice(
+        startIndex,
+        startIndex + formsPerPage,
+    );
 
-
-    
 
 
     if (isLoading) {
-        return (
-            <div className="dashboard-table-wrapper">
-                <div className="dashboard-table-state">
-                    Loading forms...
-                </div>
-            </div>
-        );
+        return <DashboardFormsTableSkeleton />;
     }
 
     if (error) {
@@ -143,11 +135,12 @@ const currentForms = forms.slice(
 
     if (forms.length === 0) {
         return (
-            <div className="dashboard-table-wrapper">
-                <div className="dashboard-table-state">
-                    No forms found.
-                </div>
-            </div>
+            <EmptyState
+                title="No forms yet"
+                description="Create your first form and start collecting responses."
+                buttonText="Create your first form"
+                onButtonClick={() => navigate("/forms/new")}
+            />
         );
     }
 
@@ -189,18 +182,18 @@ const currentForms = forms.slice(
                                         >
                                             {form.status ===
                                                 "PUBLISHED" && (
-                                                <CheckCircleOutlineOutlinedIcon />
-                                            )}
+                                                    <CheckCircleOutlineOutlinedIcon />
+                                                )}
 
                                             {form.status ===
                                                 "DRAFT" && (
-                                                <AccessTimeOutlinedIcon />
-                                            )}
+                                                    <AccessTimeOutlinedIcon />
+                                                )}
 
                                             {form.status ===
                                                 "ARCHIVED" && (
-                                                <ArchiveOutlinedIcon />
-                                            )}
+                                                    <ArchiveOutlinedIcon />
+                                                )}
 
                                             {form.status}
                                         </span>
@@ -217,7 +210,7 @@ const currentForms = forms.slice(
                                             <span className="dashboard-response-count">
                                                 {responsesCount}{" "}
                                                 {responsesCount ===
-                                                1
+                                                    1
                                                     ? "response"
                                                     : "responses"}
                                             </span>
@@ -245,10 +238,10 @@ const currentForms = forms.slice(
             </div>
 
             <Pagination
-    currentPage={currentPage}
-    totalPages={totalPages}
-    onPageChange={setCurrentPage}
-/>
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+            />
         </div>
     );
 };

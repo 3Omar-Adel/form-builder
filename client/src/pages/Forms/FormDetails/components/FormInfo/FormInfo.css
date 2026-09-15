@@ -1,36 +1,26 @@
 .form-info {
     width: 100%;
     min-width: 0;
-
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-
     gap: 1px;
     margin-bottom: 20px;
-
     overflow: hidden;
-
     border: 1px solid var(--color-border);
     border-radius: 12px;
-
     background-color: var(--color-border);
 }
 
 .form-info-item {
     min-width: 0;
-
     padding: 16px 18px;
-
     background-color: var(--color-surface);
 }
 
 .form-info-item span {
     display: block;
-
     margin-bottom: 6px;
-
     color: var(--color-text-muted);
-
     font-size: 11px;
     font-weight: 500;
     line-height: 1.3;
@@ -39,24 +29,19 @@
 .form-info-item strong {
     display: block;
     min-width: 0;
-
     overflow: hidden;
-
     color: var(--color-text);
-
     font-size: 13px;
     font-weight: 600;
     line-height: 1.4;
-
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
 .form-info-item-link {
     text-decoration: none;
     cursor: pointer;
-
-    transition:
-        background-color 0.2s ease;
+    transition: background-color 0.2s ease;
 }
 
 .form-info-item-link:hover {
@@ -66,6 +51,7 @@
 .form-info-item-link strong {
     color: var(--color-primary);
 }
+
 @media (max-width: 800px) {
     .form-info {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -78,8 +64,6 @@
 
 @media (max-width: 500px) {
     .form-info {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-
         border-radius: 10px;
     }
 

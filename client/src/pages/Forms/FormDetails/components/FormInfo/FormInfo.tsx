@@ -13,26 +13,17 @@ const FormInfo = ({ form }: FormInfoProps) => {
         <section className="form-info">
             <div className="form-info-item">
                 <span>ID</span>
-
-                <strong title={form.id}>
-                    {form.id}
-                </strong>
+                <strong title={form.id}>{form.id}</strong>
             </div>
 
             <div className="form-info-item">
                 <span>Status</span>
-
-                <strong>
-                    {form.status}
-                </strong>
+                <strong>{form.status}</strong>
             </div>
 
             <div className="form-info-item">
                 <span>Fields</span>
-
-                <strong>
-                    {form._count?.fields ?? 0}
-                </strong>
+                <strong>{form._count?.fields ?? 0}</strong>
             </div>
 
             <Link
@@ -40,10 +31,7 @@ const FormInfo = ({ form }: FormInfoProps) => {
                 className="form-info-item form-info-item-link"
             >
                 <span>Responses</span>
-
-                <strong>
-                    {form._count?.responses ?? 0}
-                </strong>
+                <strong>{form._count?.responses ?? 0}</strong>
             </Link>
         </section>
     );

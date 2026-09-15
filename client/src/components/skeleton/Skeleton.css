@@ -1,0 +1,32 @@
+.app-skeleton {
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: var(--color-border);
+}
+
+.app-skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--color-surface-hover),
+        transparent
+    );
+    animation: app-skeleton-shimmer 1.5s infinite;
+}
+
+@keyframes app-skeleton-shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .app-skeleton::after {
+        animation: none;
+    }
+}

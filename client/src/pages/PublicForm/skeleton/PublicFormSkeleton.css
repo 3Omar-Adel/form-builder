@@ -1,0 +1,41 @@
+.public-form-skeleton {
+    width: min(100%, 720px);
+    padding: 32px;
+    box-sizing: border-box;
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    background: var(--color-surface);
+}
+
+.public-form-skeleton-header {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.public-form-skeleton-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding-top: 28px;
+}
+
+.public-form-skeleton-field {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+@media (max-width: 600px) {
+    .public-form-skeleton {
+        padding: 22px 18px;
+        border-radius: 13px;
+    }
+
+    .public-form-skeleton-fields {
+        gap: 18px;
+        padding-top: 22px;
+    }
+}
